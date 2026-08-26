@@ -13,6 +13,17 @@ import { SupabaseApiService } from './../../services/supabase-api-service.servic
   styleUrls: ['./formula.page.scss'],
 })
 export class FormulaPage implements OnInit {
+  params = {
+    a: 4,
+    l: 394,
+    k: 50,
+    omega: 0.6,
+    pi: 0.4,
+    cp: 0.2,
+    a0: 110.4,
+    e: 2
+  };
+
 resultado: any;
 
   constructor(
@@ -36,18 +47,8 @@ resultado: any;
   }
 
   calcular() {
-    const params = {
-      a: 4,
-      l: 394,
-      k: 50,
-      omega: 0.6,
-      pi: 0.4,
-      cp: 0.2,
-      a0: 110.4,
-      e: 2
-    };
 
-    this.supabaseApi.calcularEquilibrio(params).subscribe({
+    this.supabaseApi.calcularEquilibrio(this.params).subscribe({
       next: (res) => {
         console.log('Resultado:', res);
         this.resultado = res;
@@ -57,5 +58,5 @@ resultado: any;
       }
     });
   }
-  
+
 }

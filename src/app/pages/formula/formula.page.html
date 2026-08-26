@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-
+<!-- 
   <ion-button expand="block" (click)="calcular()">Calcular equilibrio</ion-button>
 
   <ion-card *ngIf="resultado">
@@ -21,5 +21,61 @@
       <pre>{{ resultado | json }}</pre>
     </ion-card-content>
   </ion-card>
-  
+ -->
+  <form (ngSubmit)="calcular()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">a</ion-label>
+        <ion-input type="number" [(ngModel)]="params.a" name="a"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">l</ion-label>
+        <ion-input type="number" [(ngModel)]="params.l" name="l"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">k</ion-label>
+        <ion-input type="number" [(ngModel)]="params.k" name="k"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">omega</ion-label>
+        <ion-input type="number" step="0.01" [(ngModel)]="params.omega" name="omega"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">pi</ion-label>
+        <ion-input type="number" step="0.01" [(ngModel)]="params.pi" name="pi"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">cp</ion-label>
+        <ion-input type="number" step="0.01" [(ngModel)]="params.cp" name="cp"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">a0</ion-label>
+        <ion-input type="number" step="0.01" [(ngModel)]="params.a0" name="a0"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">e</ion-label>
+        <ion-input type="number" step="0.01" [(ngModel)]="params.e" name="e"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" type="submit">Calcular equilibrio</ion-button>
+  </form>
+
+  <ion-card *ngIf="resultado">
+    <ion-card-header>
+      <ion-card-title>Resultado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <pre>{{ resultado | json }}</pre>
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>
