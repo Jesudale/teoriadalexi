@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>formula</ion-title>
+ 
+  <ion-buttons slot="end">
+      <ion-button (click)="signOut()" > <ion-icon name="log-out-outline" slot="icon-only"></ion-icon> </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button expand="block" (click)="calcular()">Calcular equilibrio</ion-button>
+
+  <ion-card *ngIf="resultado">
+    <ion-card-header>
+      <ion-card-title>Resultado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <pre>{{ resultado | json }}</pre>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

@@ -5,6 +5,7 @@ import { isPlatform } from '@ionic/angular';
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,9 @@ export class AuthService {
   private supabase: SupabaseClient;
   private currentUser: BehaviorSubject<User | boolean> = new BehaviorSubject(null);
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private alertController: AlertController,
+  ) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
     this.supabase.auth.onAuthStateChange((event, sess) => {
@@ -63,7 +66,29 @@ export class AuthService {
   }
 
   sendPwReset(email) {
-    return this.supabase.auth.resetPasswordForEmail(email);
+    return this.supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'http://localhost:3000/update-password'
+  });
+  }
+  
+async updatePassword(newPassword: string) {
+  const { data, error } = await this.supabase.auth.updateUser({
+    password: newPassword
+  });
+  if (error) {
+    this.showAlert('Error', error.message);
+  } else {
+    this.showAlert('Éxito', 'Contraseña actualizada');
+    this.router.navigateByUrl('/formula', { replaceUrl: true });
+  }
+}
+ async showAlert(title, msg) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: msg,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   async signOut() {

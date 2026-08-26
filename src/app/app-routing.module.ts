@@ -24,7 +24,15 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },  {
+    path: 'formula',
+    loadChildren: () => import('./pages/formula/formula.module').then( m => m.FormulaPageModule)
   },
+  {
+    path: 'update-password',
+    loadChildren: () => import('./pages/update-password/update-password.module').then( m => m.UpdatePasswordPageModule)
+  },
+
 ];
 
 @NgModule({

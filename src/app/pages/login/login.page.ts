@@ -25,7 +25,8 @@ export class LoginPage {
     this.authService.getCurrentUser().subscribe((user) => {
       if (user) {
         console.log('GOT USER ON LOGIN');
-        this.router.navigateByUrl('/groups', { replaceUrl: true });
+       // this.router.navigateByUrl('/groups', { replaceUrl: true });
+        this.router.navigateByUrl('/formula', { replaceUrl: true });
       }
     });
   }
