@@ -138,4 +138,12 @@ ion-button {
   }
 }
 
+ion-input[type=number]::part(native)::-webkit-inner-spin-button,
+ion-input[type=number]::part(native)::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+ion-input[type=number]::part(native) {
+  -moz-appearance: textfield; /* Firefox */
+}

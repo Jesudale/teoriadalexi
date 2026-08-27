@@ -28,22 +28,22 @@
   <ion-card-content>
     <ion-item>
       <ion-label>A = {{ params.a }}</ion-label>
-      <ion-range min="0" [max]="maxA" step="1" [(ngModel)]="params.a" name="aRange" pin="true"></ion-range>
+      <ion-range min="0" [max]="maxA" step="1" [(ngModel)]="params.a" name="aRange" pin="true" (ngModelChange)="updateMax('params.a')"></ion-range>
       
       <!-- Input que redefine el máximo -->
-      <ion-input type="number" [(ngModel)]="maxA" name="maxA" (ngModelChange)="updateMax('a')"></ion-input>
+      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxA" name="maxA" (ngModelChange)="updateMax('a')"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>L = {{ params.l }}</ion-label>
-      <ion-range min="0" [max]="maxL" step="10" [(ngModel)]="params.l" name="lRange" pin="true"></ion-range>
-      <ion-input type="number" [(ngModel)]="maxL" name="maxL" (ngModelChange)="updateMax('l')"></ion-input>
+      <ion-range min="0" [max]="maxL" step="10" [(ngModel)]="params.l" name="lRange" pin="true" (ngModelChange)="updateMax('params.l')"></ion-range>
+      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxL" name="maxL" (ngModelChange)="updateMax('l')"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>K = {{ params.k }}</ion-label>
-      <ion-range min="0" [max]="maxK" step="5" [(ngModel)]="params.k" name="kRange" pin="true"></ion-range>
-      <ion-input type="number" [(ngModel)]="maxK" name="maxK" (ngModelChange)="updateMax('k')"></ion-input>
+      <ion-range min="0" [max]="maxK" step="5" [(ngModel)]="params.k" name="kRange" pin="true" (ngModelChange)="updateMax('params.k')"></ion-range>
+      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxK" name="maxK" (ngModelChange)="updateMax('k')"></ion-input>
     </ion-item>
   </ion-card-content>
 </ion-card>
@@ -56,20 +56,20 @@
   <ion-card-content>
     <ion-item>
       <ion-label>Cp = {{ params.cp }}</ion-label>
-      <ion-range min="0" [max]="maxCp" step="1" [(ngModel)]="params.cp" name="cpRange" pin="true"></ion-range>
-      <ion-input type="number" [(ngModel)]="maxCp" name="maxCp" (ngModelChange)="updateMax('cp')"></ion-input>
+      <ion-range min="0" [max]="maxCp" step="1" [(ngModel)]="params.cp" name="cpRange" pin="true" (ngModelChange)="updateMax('params.cp')"></ion-range>
+      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxCp" name="maxCp" (ngModelChange)="updateMax('cp')"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>A0 = {{ params.a0 }}</ion-label>
-      <ion-range min="0" [max]="maxA0" step="1" [(ngModel)]="params.a0" name="a0Range" pin="true"></ion-range>
-      <ion-input type="number" [(ngModel)]="maxA0" name="maxA0" (ngModelChange)="updateMax('a0')"></ion-input>
+      <ion-range min="0" [max]="maxA0" step="1" [(ngModel)]="params.a0" name="a0Range" pin="true" (ngModelChange)="updateMax('params.a0')"></ion-range>
+      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxA0" name="maxA0" (ngModelChange)="updateMax('a0')"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>e = {{ params.e }}</ion-label>
-      <ion-range min="0" [max]="maxE" step="1" [(ngModel)]="params.e" name="eRange" pin="true"></ion-range>
-      <ion-input type="number" [(ngModel)]="maxE" name="maxE" (ngModelChange)="updateMax('e')"></ion-input>
+      <ion-range min="0" [max]="maxE" step="1" [(ngModel)]="params.e" name="eRange" pin="true" (ngModelChange)="updateMax('params.e')"></ion-range>
+      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxE" name="maxE" (ngModelChange)="updateMax('e')"></ion-input>
     </ion-item>
   </ion-card-content>
 </ion-card>
