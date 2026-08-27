@@ -9,73 +9,159 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-<!-- 
-  <ion-button expand="block" (click)="calcular()">Calcular equilibrio</ion-button>
 
-  <ion-card *ngIf="resultado">
-    <ion-card-header>
-      <ion-card-title>Resultado</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <pre>{{ resultado | json }}</pre>
-    </ion-card-content>
-  </ion-card>
- -->
-  <form (ngSubmit)="calcular()">
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">a</ion-label>
-        <ion-input type="number" [(ngModel)]="params.a" name="a"></ion-input>
-      </ion-item>
+  <div class="layout">
+    <!-- Columna izquierda -->
+    <div class="col izquierda">
+      <!-- Aquí va tu contenido de la izquierda -->
+        <!-- Aquí metes tu código, por ejemplo las cards -->
+              <div class="container">
+        <!-- Formulario -->
+                <form (ngSubmit)="calcular()" class="formulario,form-wrapper">
+                  <!-- Producción -->
+                  <ion-card>
+                    <ion-card-header>
+                      <ion-card-title>Producción</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <ion-item>
+                        <ion-label>a</ion-label>
 
-      <ion-item>
-        <ion-label position="floating">l</ion-label>
-        <ion-input type="number" [(ngModel)]="params.l" name="l"></ion-input>
-      </ion-item>
+                        <ion-range min="0" max="10" step="1" [(ngModel)]="params.a" name="aRange" pin="true"></ion-range>
+                                                <ion-input type="number" [(ngModel)]="params.a" name="a"></ion-input>
+                      </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">k</ion-label>
-        <ion-input type="number" [(ngModel)]="params.k" name="k"></ion-input>
-      </ion-item>
+                      <ion-item>
+                        <ion-label>l</ion-label>
 
-      <ion-item>
-        <ion-label position="floating">omega</ion-label>
-        <ion-input type="number" step="0.01" [(ngModel)]="params.omega" name="omega"></ion-input>
-      </ion-item>
+                        <ion-range min="0" max="1000" step="10" [(ngModel)]="params.l" name="lRange" pin="true"></ion-range>
+                                                <ion-input type="number" [(ngModel)]="params.l" name="l"></ion-input>
+                      </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">pi</ion-label>
-        <ion-input type="number" step="0.01" [(ngModel)]="params.pi" name="pi"></ion-input>
-      </ion-item>
+                      <ion-item>
+                        <ion-label>k</ion-label>
 
-      <ion-item>
-        <ion-label position="floating">cp</ion-label>
-        <ion-input type="number" step="0.01" [(ngModel)]="params.cp" name="cp"></ion-input>
-      </ion-item>
+                        <ion-range min="0" max="200" step="5" [(ngModel)]="params.k" name="kRange" pin="true"></ion-range>
+                                                <ion-input type="number" [(ngModel)]="params.k" name="k"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
 
-      <ion-item>
-        <ion-label position="floating">a0</ion-label>
-        <ion-input type="number" step="0.01" [(ngModel)]="params.a0" name="a0"></ion-input>
-      </ion-item>
+                  <!-- Circulación -->
+                  <ion-card>
+                    <ion-card-header>
+                      <ion-card-title>Circulación</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <ion-item>
+                        <ion-label>cp</ion-label>
 
-      <ion-item>
-        <ion-label position="floating">e</ion-label>
-        <ion-input type="number" step="0.01" [(ngModel)]="params.e" name="e"></ion-input>
-      </ion-item>
-    </ion-list>
+                        <ion-range min="0" max="1" step="0.01" [(ngModel)]="params.cp" name="cpRange" pin="true"></ion-range>
+                                                <ion-input type="number" step="0.01" [(ngModel)]="params.cp" name="cp"></ion-input>
+                      </ion-item>
 
-    <ion-button expand="block" type="submit">Calcular equilibrio</ion-button>
-  </form>
+                      <ion-item>
+                        <ion-label>a0</ion-label>
 
-  <ion-card *ngIf="resultado">
-    <ion-card-header>
-      <ion-card-title>Resultado</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <pre>{{ resultado | json }}</pre>
-    </ion-card-content>
-  </ion-card>
+                        <ion-range min="0" max="500" step="0.1" [(ngModel)]="params.a0" name="a0Range" pin="true"></ion-range>
+                                                <ion-input type="number" step="0.01" [(ngModel)]="params.a0" name="a0"></ion-input>
+                      </ion-item>
 
+                      <ion-item>
+                        <ion-label>e</ion-label>
+
+                        <ion-range min="0" max="10" step="0.1" [(ngModel)]="params.e" name="eRange" pin="true"></ion-range>
+                                                <ion-input type="number" step="0.01" [(ngModel)]="params.e" name="e"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                  <!-- Distribución del ingreso -->
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>Distribución del ingreso</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <!-- Slider único para omega -->
+                        <ion-item>
+                          <ion-label>ω (omega)</ion-label>
+
+                          <ion-range min="0" max="1" step="0.1" [(ngModel)]="params.omega" name="omegaRange" pin="true"></ion-range>
+                                                    <ion-input type="number" step="0.1" [(ngModel)]="params.omega" name="omega"></ion-input>
+                        </ion-item>
+
+                        <!-- Pi calculado automáticamente -->
+                        <ion-item>
+                          <ion-label>π (pi)</ion-label>
+                          <ion-input type="number" [value]="(1 - params.omega) | number:'1.1-1'" readonly></ion-input>
+                        </ion-item>
+                      </ion-card-content>
+                    </ion-card>
+                </form>
+
+              </div>
+
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="col derecha">
+      <!-- Aquí va tu contenido de la derecha -->
+        <!-- Aquí metes tu formulario compacto -->
+                 <!-- Cards de agrupación -->
+            <div class="cards-container">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Producción</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <canvas #produccionChart></canvas>
+                </ion-card-content>
+              </ion-card>
+
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Circulación</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <canvas #circulacionChart></canvas>
+                </ion-card-content>
+              </ion-card>
+
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Distribución del ingreso</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <canvas #distribucionChart></canvas>
+                </ion-card-content>
+              </ion-card>
+
+
+            </div>
+              <!-- Botón centrado debajo de las tres cards -->
+            <div class="boton-container">
+              <ion-button expand="block" size="small" (click)="calcular()"> Calcular estado Macro econmico</ion-button>
+            </div>
+
+
+
+              <!-- Card de resultados en bloque separado -->
+              <div class="resultado-container">
+                <ion-card *ngIf="resultado">
+                  <ion-card-header>
+                    <ion-card-title>Resultado del API</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <pre>{{ resultado | json }}</pre>
+                  </ion-card-content>
+                </ion-card>
+              </div>
+
+
+    </div>
+  </div>
+  
 
 </ion-content>
+

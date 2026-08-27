@@ -1,0 +1,133 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px;
+}
+/* En pantallas pequeñas se apilan */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+/* Formulario ocupa la mitad */
+.formulario {
+  flex: 1;
+}
+.form-wrapper {
+  max-width: 480px;   /* 👈 más estrecho */
+  margin: 0 auto;
+}
+
+
+/* Card ocupa la otra mitad */
+.resultado {
+  flex: 1;
+}
+
+
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.cards-container ion-card {
+  flex: 0 0 auto;
+  min-width: 220px;
+  max-width: 260px;
+  text-align: center;
+}
+
+/* Card de resultado debajo */
+.resultado-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column; /* 👈 fuerza que esté debajo */
+  align-items: center;
+}
+
+.resultado-container ion-card {
+  width: 100%;
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+  }
+}
+
+
+ion-card {
+  margin: 8px 0;
+}
+
+ion-item {
+  --min-height: 36px; /* 👈 reduce altura */
+}
+
+ion-label {
+  font-size: 0.9rem;  /* 👈 etiquetas más pequeñas */
+}
+
+ion-input, ion-range {
+  max-width: 160px;   /* 👈 inputs y sliders más compactos */
+}
+
+ion-button {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+/* Botón debajo de las cards */
+.boton-container {
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.boton-container ion-button {
+
+  width: auto;       /* 👈 se ajusta al texto */
+  max-width: none;   /* 👈 elimina la restricción fija */
+  padding: 0 12px;   /* 👈 espacio lateral */
+
+}
+
+.layout {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Columna izquierda más pequeña */
+.col.izquierda {
+  flex: 1;
+  max-width: 35%;
+}
+
+/* Columna derecha más grande */
+.col.derecha {
+  flex: 2;
+  max-width: 65%;
+}
+
+/* Responsive: en pantallas pequeñas se apilan */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column; /* 👈 cambia a filas */
+  }
+
+  .col.izquierda,
+  .col.derecha {
+    max-width: 100%;
+  }
+}
