@@ -147,3 +147,27 @@ ion-input[type=number]::part(native)::-webkit-outer-spin-button {
 ion-input[type=number]::part(native) {
   -moz-appearance: textfield; /* Firefox */
 }
+
+.resultado-card {
+  margin: 10px auto;       /* 👈 menos margen externo */
+  max-width: 700px;        /* 👈 controla ancho del card padre */
+}
+
+.resultado-title {
+  text-align: center;      /* 👈 centra el título */
+  font-weight: bold;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cards-container ion-card {
+  flex: 1 1 45%;
+  min-width: 220px;
+  max-width: 300px;
+}

@@ -54,11 +54,28 @@
     <ion-card-title>Circulación</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-item>
-      <ion-label>Cp = {{ params.cp }}</ion-label>
-      <ion-range min="0" [max]="maxCp" step="1" [(ngModel)]="params.cp" name="cpRange" pin="true" (ngModelChange)="updateMax('params.cp')"></ion-range>
-      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxCp" name="maxCp" (ngModelChange)="updateMax('cp')"></ion-input>
-    </ion-item>
+          <ion-item>
+              <!-- Mostrar Cp como porcentaje -->
+              <ion-label>Cp = {{ (params.cp * 100) | number:'1.0-0' }}%</ion-label>
+
+              <!-- Slider limitado entre 0 y 1 -->
+              <ion-range min="0" max="1" step="0.1"
+                        [(ngModel)]="params.cp"
+                        name="cpRange"
+                        pin="true"
+                        (ngModelChange)="updateCp()">
+              </ion-range>
+
+              <!-- Input numérico limitado entre 0 y 1 -->
+              <ion-input type="number"
+                        step="0.1"
+                        min="0"
+                        max="1"
+                        [(ngModel)]="params.cp"
+                        name="cpInput"
+                        (ngModelChange)="updateCp()">
+              </ion-input>
+            </ion-item>
 
     <ion-item>
       <ion-label>A0 = {{ params.a0 }}</ion-label>
@@ -120,43 +137,94 @@
       <!-- Aquí va tu contenido de la derecha -->
         <!-- Aquí metes tu formulario compacto -->
                  <!-- Cards de agrupación -->
-            <div class="cards-container">
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-title>Producción</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <canvas #produccionChart></canvas>
-                </ion-card-content>
-              </ion-card>
-
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-title>Circulación</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <canvas #circulacionChart></canvas>
-                </ion-card-content>
-              </ion-card>
-
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-title>Distribución del ingreso</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <canvas #distribucionChart></canvas>
-                </ion-card-content>
-              </ion-card>
 
 
-            </div>
-              <!-- Botón centrado debajo de las tres cards -->
-            <div class="boton-container">
-              <ion-button expand="block" size="small" (click)="calcular()"> Calcular estado Macro económico</ion-button>
-            </div>
+                 
+                         <!-- Card principal -->
+          <ion-card class="resultado-card">
+              <ion-card-header>
+                <ion-card-title class="resultado-title">Valores de la fórmula</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+
+                      <div class="cards-container">
+                        <ion-card>
+                          <ion-card-header>
+                            <ion-card-title>Producción</ion-card-title>
+                          </ion-card-header>
+                          <ion-card-content>
+                            <canvas #produccionChart></canvas>
+                          </ion-card-content>
+                        </ion-card>
+
+                        <ion-card>
+                          <ion-card-header>
+                            <ion-card-title>Circulación</ion-card-title>
+                          </ion-card-header>
+                          <ion-card-content>
+                            <canvas #circulacionChart></canvas>
+                          </ion-card-content>
+                        </ion-card>
+
+                        <ion-card>
+                          <ion-card-header>
+                            <ion-card-title>Distribución del ingreso</ion-card-title>
+                          </ion-card-header>
+                          <ion-card-content>
+                            <canvas #distribucionChart></canvas>
+                          </ion-card-content>
+                        </ion-card>
 
 
+                      </div>
+                        <!-- Botón centrado debajo de las tres cards -->
+                      <div class="boton-container">
+                        <ion-button expand="block" size="small" (click)="calcular()"> Calcular estado Macro económico</ion-button>
+                      </div>
 
+
+              </ion-card-content>
+          </ion-card>
+          
+
+
+             <!-- Card principal -->
+          <ion-card class="resultado-card">
+  <ion-card-header>
+    <ion-card-title class="resultado-title">Resultado</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="cards-container">
+      <!-- Sub-card: Gráfico del Valor -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Gráfico del Valor</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #resultadoChart style="max-width: 200px; max-height: 200px;"></canvas>
+          <ion-button expand="block" (click)="establecerPuntoPartida()">
+            Fijar valor de partida
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Sub-card: Estado Macro económico -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Estado Macro económico</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p *ngIf="resultado">Equilibrio: {{ resultado[0]?.equilibrio }}</p>
+          <p *ngIf="resultado">Diferencia: {{ resultado[0]?.diferencia | number:'1.2-2' }}</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-card-content>
+          </ion-card>
+
+
+          
               <!-- Card de resultados en bloque separado -->
               <div class="resultado-container">
                 <ion-card *ngIf="resultado">
@@ -165,9 +233,12 @@
                   </ion-card-header>
                   <ion-card-content>
                     <pre>{{ resultado | json }}</pre>
+                    
+
                   </ion-card-content>
-                </ion-card>
+                </ion-card>                  
               </div>
+
 
 
     </div>

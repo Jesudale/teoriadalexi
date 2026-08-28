@@ -4,7 +4,7 @@ import { AuthService } from './../../services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables,ChartConfiguration  } from 'chart.js';
 
 import { SupabaseApiService } from './../../services/supabase-api-service.service';
 
@@ -16,12 +16,22 @@ import { SupabaseApiService } from './../../services/supabase-api-service.servic
 export class FormulaPage implements OnInit, AfterViewInit {
 @ViewChild('produccionChart') produccionRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('circulacionChart') circulacionRef!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('distribucionChart') distribucionRef!: ElementRef<HTMLCanvasElement>;
-  
+  @ViewChild('distribucionChart') distribucionRef!: ElementRef<HTMLCanvasElement>;  
+  @ViewChild('resultadoChart') resultadoChart!: ElementRef;
+  chart2!: Chart<'pie'>;   // 👈 tipa directamente como pie chart
 
   produccionChart: any;
   circulacionChart: any;
   distribucionChart: any;
+
+  resultado: any = [
+    {
+      produccion: 690.1535498648918,
+      circulacion: 690.0,
+      diferencia: 0.1535498648918,
+      equilibrio: true
+    }
+  ];
 
  params = {
     a: 4,
@@ -64,9 +74,18 @@ export class FormulaPage implements OnInit, AfterViewInit {
   formatValue(value: number) {
     return value.toFixed(1); // siempre muestra con una coma decimal
   }
-  
-resultado: any;
+
+// resultado: any;
 chart: any;
+
+puntoPartidaProduccion: number | null = null;
+
+establecerPuntoPartida() {
+  if (this.resultado && this.resultado[0]) {
+    this.puntoPartidaProduccion = this.resultado[0].produccion;
+    console.log('Punto de partida establecido:', this.puntoPartidaProduccion);
+  }
+}
 
   constructor(
         private authService: AuthService,
@@ -85,8 +104,44 @@ chart: any;
 
    ngAfterViewInit() {
     this.initCharts();
+this.initChart();
   }
 
+  updateCp() {
+  // Asegurar que Cp esté entre 0 y 1
+  if (this.params.cp < 0) this.params.cp = 0;
+  if (this.params.cp > 1) this.params.cp = 1;
+
+  // Redondear a un decimal
+  this.params.cp = parseFloat(this.params.cp.toFixed(1));
+}
+
+  initChart() {
+  const config: ChartConfiguration<'pie'> = {
+    type: 'pie',
+    data: {
+      labels: ['Producción', 'Validación'],
+      datasets: [{
+        data: [0, 0],
+        backgroundColor: ['#36A2EB', '#FF6384'],
+      }]
+    },
+    options: { responsive: true,
+              maintainAspectRatio: false
+     }
+  };
+
+  this.chart2 = new Chart<'pie'>(this.resultadoChart.nativeElement, config);
+  this.calcular()
+}
+
+  updateChart() {
+   // if (!this.chart2 || !this.resultado) return;
+
+    const data = this.resultado[0];
+    this.chart2.data.datasets[0].data = [data.produccion, data.circulacion];
+    this.chart2.update();
+  }
     signOut() {
     this.authService.signOut();
   }
@@ -104,6 +159,7 @@ this.params.omega = parseFloat(this.params.omega.toFixed(1));
         console.log('Resultado:', res);
         this.resultado = res;
         this.updateCharts();
+        this.updateChart()
       },
       error: (err) => {
         console.error('Error:', err);
