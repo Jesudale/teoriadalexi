@@ -7,6 +7,8 @@ import { AlertController, NavController, LoadingController } from '@ionic/angula
 import { Chart, registerables,ChartConfiguration  } from 'chart.js';
 
 import { SupabaseApiService } from './../../services/supabase-api-service.service';
+import { TranslateService } from '@ngx-translate/core'; 
+
 
 @Component({
   selector: 'app-formula',
@@ -25,6 +27,15 @@ export class FormulaPage implements OnInit, AfterViewInit {
   distribucionChart: any;
 
   resultado: any = [
+    {
+      produccion: 690.1535498648918,
+      circulacion: 690.0,
+      diferencia: 0.1535498648918,
+      equilibrio: true
+    }
+  ];
+
+  equilibrio: any = [
     {
       produccion: 690.1535498648918,
       circulacion: 690.0,
@@ -87,16 +98,22 @@ establecerPuntoPartida() {
   }
 }
 
+ currentLang = 'es';
+
   constructor(
         private authService: AuthService,
         private alertController: AlertController,
         private loadingController: LoadingController,
         private navContoller: NavController,
         private router: Router,
-        private supabaseApi: SupabaseApiService
+        private supabaseApi: SupabaseApiService,
+        private translate: TranslateService
   ) { 
     
     Chart.register(...registerables);   // 👈 registra todos los controladores
+    // translate.setDefaultLang('es');
+     this.translate.setDefaultLang(this.currentLang);
+
   }
 
   ngOnInit() {
@@ -107,6 +124,88 @@ establecerPuntoPartida() {
 this.initChart();
   }
 
+  
+  async changeLang(lang: string) {
+  const loader = await this.loadingController.create({
+    message: 'Cambiando idioma...',
+    spinner: 'crescent',
+    translucent: true,
+    cssClass: 'custom-loader'
+  });
+  await loader.present();
+
+  this.translate.use(lang).subscribe({
+    next: async () => {
+      await loader.dismiss();
+    },
+    error: async () => {
+      await loader.dismiss();
+    }
+  });
+}
+  
+// Función para calcular porcentaje
+ calcularPorcentaje(res: any) {
+  const produccion = res.produccion;
+  const diferencia = res.diferencia;
+
+  const porcentaje = (diferencia / produccion) * 100;
+
+console.log(`La diferencia representa ${porcentaje.toFixed(2)}% de la producción`);
+
+  return porcentaje.toFixed(2); // dos cifras decimales
+}
+
+clasificarDiferencia(resultado: { produccion: number, circulacion: number, diferencia: number, equilibrio: boolean | number  }) {
+  const pasa_resultado=resultado
+  const produccion = resultado.produccion;
+  const diferenciaAbs = Math.abs(resultado.diferencia); // 👈 convertir a positivo
+
+  const porcentaje = (diferenciaAbs / produccion) * 100;
+
+  let categoria = '';
+  if (porcentaje >= 5 && porcentaje < 10) {
+    categoria = 'Ligera';
+  } else if (porcentaje >= 10 && porcentaje < 25) {
+    categoria = 'Moderada';
+  } else if (porcentaje >= 25) {
+    categoria = 'Aguda';
+  } else {
+    categoria = 'Sin relevancia';
+  }
+
+   if (categoria =='Sin relevancia') {
+    
+  console.log(`La diferencia entre los dos valores representa ${porcentaje.toFixed(2)}% del valor la producción → La economía está en equilibrio dinámico`);
+
+  }else {
+    console.log(`La diferencia entre los dos valores representa ${porcentaje.toFixed(2)}% del valor la producción → Los fenómenos se muestran de manera ${categoria}`);
+  }
+  this.evaluarEconomia(pasa_resultado)
+  // return { porcentaje: porcentaje.toFixed(2), categoria };
+}
+
+evaluarEconomia(resultado: { produccion: number, circulacion: number, diferencia: number, equilibrio: boolean | number }) {
+  // Si equilibrio es 1 (o true)
+  if (resultado.equilibrio === 1 || resultado.equilibrio === true) {
+    console.log("Economía en equilibrio dinámico");
+    return "Economía en equilibrio dinámico";
+  }
+
+
+
+  // Si equilibrio es false → comparar producción vs circulación
+ /*  if (resultado.produccion > resultado.circulacion) {
+    console.log("Dominancia de la Producción");
+    return "Dominancia de la Producción";
+  } else {
+    console.log("Dominancia de la Circulación");
+    return "Dominancia de la Circulación";
+  } */
+
+      this.compararEconomia(this.equilibrio,this.resultado)
+}
+
   updateCp() {
   // Asegurar que Cp esté entre 0 y 1
   if (this.params.cp < 0) this.params.cp = 0;
@@ -116,30 +215,47 @@ this.initChart();
   this.params.cp = parseFloat(this.params.cp.toFixed(1));
 }
 
-  initChart() {
+initChart() {
+  const data = this.resultado[0]; // 👈 tomamos el primer objeto
+
   const config: ChartConfiguration<'pie'> = {
     type: 'pie',
     data: {
-      labels: ['Producción', 'Validación'],
+      labels: [
+        'Producción ' + data.produccion.toFixed(2),
+        'Circulación ' + data.circulacion.toFixed(2)
+      ],
       datasets: [{
-        data: [0, 0],
+        data: [data.produccion, data.circulacion],
         backgroundColor: ['#36A2EB', '#FF6384'],
       }]
     },
-    options: { responsive: true,
-              maintainAspectRatio: false
-     }
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
   };
 
   this.chart2 = new Chart<'pie'>(this.resultadoChart.nativeElement, config);
-  this.calcular()
+  this.calcular();
 }
 
   updateChart() {
    // if (!this.chart2 || !this.resultado) return;
-
+ 
     const data = this.resultado[0];
     this.chart2.data.datasets[0].data = [data.produccion, data.circulacion];
+    this.chart2.data.labels = [
+    `Producción (${data.produccion.toFixed(2)})`,
+    `Circulación (${data.circulacion.toFixed(2)})`
+  ];
+
+  this.chart2.data.datasets[0].data = [
+    data.produccion,
+    data.circulacion
+  ];
+
+  
     this.chart2.update();
   }
     signOut() {
@@ -160,12 +276,100 @@ this.params.omega = parseFloat(this.params.omega.toFixed(1));
         this.resultado = res;
         this.updateCharts();
         this.updateChart()
+       // this.calcularPorcentaje(this.resultado[0]);
+        this.clasificarDiferencia(this.resultado[0]);
+
       },
       error: (err) => {
         console.error('Error:', err);
       }
     });
   }
+
+
+compararEconomia(
+  equilibrio: { produccion: number; circulacion: number }[],
+  api: { produccion: number; circulacion: number }[]
+) {
+  const eq = equilibrio[0];
+  const apiRes = api[0];
+
+  // Dominancia absoluta de la Producción
+  if (eq.produccion < apiRes.produccion && eq.circulacion > apiRes.circulacion) {
+    console.log("Dominancia absoluta de la Producción, crisis por la acción de la LBTCG");
+    return "Dominancia absoluta de la Producción, crisis por la acción de la LBTCG";
+  }
+
+  // Dominancia absoluta de la Circulación
+  if (apiRes.produccion < eq.produccion && apiRes.circulacion > eq.circulacion) {
+    console.log("Dominancia absoluta de la Circulación, Estanflacion");
+    return "Dominancia absoluta de la Circulación, Estanflacion";
+  }
+
+  // Dominancias relativas de la Produccion y la CirculacionI
+
+  // Dominancia relativa de la Produccion
+  if (apiRes.produccion > apiRes.circulacion) {
+
+                // 👇 cuadrante cuatro en dominancia de la produccion
+            if (eq.produccion < apiRes.produccion && eq.circulacion === apiRes.circulacion) {
+              console.log("Cuadrante cuatro");
+              return "Cuadrante cuatro";
+            }
+
+            // 👇 cuadrante tres 
+            if (eq.produccion === apiRes.produccion && eq.circulacion > apiRes.circulacion) {
+              console.log("Cuadrante tres");
+              return "Cuadrante tres";
+            }
+
+            // 👇 expansión económica con fenómenos del cuadrante cuatro
+            if (eq.produccion < apiRes.produccion && eq.circulacion < apiRes.circulacion) {
+              console.log("Expansión de la economía con las manifestaciones de los fenómenos del cuadrante cuatro");
+              return "Expansión de la economía con las manifestaciones de los fenómenos del cuadrante cuatro";
+            }
+
+            // 👇 recesión económica con fenómenos del cuadrante cuatro
+            if (apiRes.produccion < eq.produccion && apiRes.circulacion < eq.circulacion) {
+              console.log("Recesión de la economía con manifestación de los fenómenos del cuadrante cuatro");
+              return "Recesión de la economía con manifestación de los fenómenos del cuadrante cuatro";
+            }
+
+    console.log("Dominancia Relativa de la Producción");
+    return "Dominancia Relativa de la Producción";
+  } else {
+
+    // Dominancia relativa de la CirculacionI  
+    
+        // 👇 cuadrante dos en dominancia relativa de la circulación
+        if (eq.circulacion < apiRes.circulacion && eq.produccion === apiRes.produccion) {
+          console.log("Cuadrante dos");
+          return "Cuadrante dos";
+        }
+
+        // 👇 cuadrante uno en dominancia relativa de la circulación
+        if (eq.circulacion === apiRes.circulacion && eq.produccion > apiRes.produccion) {
+          console.log("Cuadrante uno");
+          return "Cuadrante uno";
+        }
+
+        // 👇 expansión económica con fenómenos del cuadrante dos
+        if (eq.circulacion < apiRes.circulacion && eq.produccion < apiRes.produccion) {
+          console.log("Expansión de la economía con manifestación de los fenómenos del cuadrante dos");
+          return "Expansión de la economía con manifestación de los fenómenos del cuadrante dos";
+        }
+                    // 👇 recesión económica con fenómenos del cuadrante dos
+            if (apiRes.produccion < eq.produccion && apiRes.circulacion < eq.circulacion) {
+              console.log("Recesión de la economía con manifestación de los fenómenos del cuadrante dos");
+              return "Recesión de la economía con manifestación de los fenómenos del cuadrante dos";
+            }
+        
+    console.log("Dominancia Relativa de la Circulación");
+    return "Dominancia Relativa de la Circulación";
+  }
+
+
+}
 
     initCharts() {
      // Producción

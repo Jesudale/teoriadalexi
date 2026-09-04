@@ -1,10 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Dashboard unification formula</ion-title>
- 
-  <ion-buttons slot="end">
-      <ion-button (click)="signOut()" > <ion-icon name="log-out-outline" slot="icon-only"></ion-icon> </ion-button>
+    <!-- Idiomas como chips translúcidos -->
+    <ion-buttons slot="start">
+      <ion-chip class="glass-chip" (click)="changeLang('es')" [color]="currentLang === 'es' ? 'primary' : 'medium'">
+        <ion-label>🇪🇸</ion-label>
+      </ion-chip>
+      <ion-chip class="glass-chip" (click)="changeLang('en')" [color]="currentLang === 'en' ? 'primary' : 'medium'">
+        <ion-label>🇺🇸</ion-label>
+      </ion-chip>
+    </ion-buttons>
 
+    <!-- Título centrado -->
+    <ion-title class="ion-text-center">
+      Dashboard Unification Formula
+    </ion-title>
+
+    <!-- Logout a la derecha -->
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -23,7 +38,7 @@
 <!-- Producción -->
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Producción</ion-card-title>
+    <ion-card-title>{{ 'PRODUCCION' | translate }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <ion-item>
@@ -51,7 +66,7 @@
 <!-- Circulación -->
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Circulación</ion-card-title>
+    <ion-card-title>{{ 'CIRCULACION' | translate }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
           <ion-item>
@@ -85,7 +100,7 @@
 
     <ion-item>
       <ion-label>e = {{ params.e }}</ion-label>
-      <ion-range min="0" [max]="maxE" step="1" [(ngModel)]="params.e" name="eRange" pin="true" (ngModelChange)="updateMax('params.e')"></ion-range>
+      <ion-range min="1" [max]="maxE" step="1" [(ngModel)]="params.e" name="eRange" pin="true" (ngModelChange)="updateMax('params.e')"></ion-range>
       <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxE" name="maxE" (ngModelChange)="updateMax('e')"></ion-input>
     </ion-item>
   </ion-card-content>
@@ -115,7 +130,7 @@
                 </ion-range>
                                 <!-- Input calculado automáticamente -->
                 <ion-label>π (pi)</ion-label>
-                <ion-input type="number"
+                <ion-input type="text" inputmode="numeric" pattern="[0-9]*"
                           [value]="params.pi | number:'1.1-1'"
                           readonly>
                 </ion-input>
@@ -203,7 +218,7 @@
         </ion-card-header>
         <ion-card-content>
           <canvas #resultadoChart style="max-width: 200px; max-height: 200px;"></canvas>
-          <ion-button expand="block" (click)="establecerPuntoPartida()">
+          <ion-button [disabled]="!resultado[0]?.equilibrio" expand="block" (click)="establecerPuntoPartida()">
             Fijar valor de partida
           </ion-button>
         </ion-card-content>

@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { FormulaPageRoutingModule } from './formula-routing.module';
 
 import { FormulaPage } from './formula.page';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FormulaPageRoutingModule
+    FormulaPageRoutingModule,
+    TranslateModule   // 👈 Importar aquí
   ],
   declarations: [FormulaPage]
 })
