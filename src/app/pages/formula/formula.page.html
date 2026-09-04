@@ -210,9 +210,9 @@
   </ion-card-header>
 
   <ion-card-content>
-    <div class="cards-container">
+    <div class="cards-container2">
       <!-- Sub-card: Gráfico del Valor -->
-      <ion-card>
+      <ion-card class="grafico-card">
         <ion-card-header>
           <ion-card-title>Gráfico del Valor</ion-card-title>
         </ion-card-header>
@@ -225,18 +225,72 @@
       </ion-card>
 
       <!-- Sub-card: Estado Macro económico -->
-      <ion-card>
+      <ion-card class="estado-card">
         <ion-card-header>
           <ion-card-title>Estado Macro económico</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <p *ngIf="resultado">Equilibrio: {{ resultado[0]?.equilibrio }}</p>
-          <p *ngIf="resultado">Diferencia: {{ resultado[0]?.diferencia | number:'1.2-2' }}</p>
+
+                    <!-- Dominancia -->
+            <ion-item lines="none" *ngIf="!resultado[0]?.equilibrio">
+              <ion-label text-wrap>
+                <h2>{{ 'DOMINANCIA' | translate }}:</h2>
+                <p>{{ estado_econo[0]?.dominancia | translate }}  </p>
+              </ion-label>
+            </ion-item>
+
+            <!-- Cuadrante -->
+            <ion-item lines="none" *ngIf="!resultado[0]?.equilibrio">
+              <ion-label text-wrap>
+                <h2>{{ 'CUADRANTE' | translate }}:</h2>
+                <p>{{ estado_econo[0]?.cuadrante | translate }}</p>
+              </ion-label>
+            </ion-item>
+
+            <!-- Fenómenos posibles -->
+            <ion-item lines="none" *ngIf="!resultado[0]?.equilibrio">
+              <ion-label text-wrap>
+                <h2>{{ 'FENOMENOS' | translate }}:</h2>
+                <p>{{ estado_econo[0]?.fenomeno | translate }}</p>
+              </ion-label>
+            </ion-item>
+
+                       <!-- Fenómeno posible -->
+            <ion-item lines="none" *ngIf="resultado[0]?.equilibrio">
+              <ion-label text-wrap>
+                <h2>{{ 'FENOMENOSEQ' | translate }}:</h2>
+                <p>{{ estado_econo[0]?.fenomeno | translate }}</p>
+              </ion-label>
+            </ion-item>
+
+            <!-- Causas -->
+            <ion-item lines="none">
+              <ion-label text-wrap>
+                <h2>{{ 'CAUSAS' | translate }}:</h2>
+                <p>{{ estado_econo[0]?.causa | translate }}</p>
+              </ion-label>
+            </ion-item>
+            
         </ion-card-content>
       </ion-card>
+   
     </div>
   </ion-card-content>
           </ion-card>
+
+
+<!-- Sub-card: Estado Macro económico -->
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Buscar equilibrio</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+ 
+  </ion-card-content>
+</ion-card>
+
+
 
 
           

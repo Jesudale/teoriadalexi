@@ -1,4 +1,70 @@
 
 
 
-{ "HELLO": "Hola mundo", "LOGIN": "Iniciar sesión", "PRODUCCION":"Producción","CIRCULACION":"Circulación" }
+{ "HELLO": "Hola mundo", "LOGIN": "Iniciar sesión", "PRODUCCION":"Producción","CIRCULACION":"Circulación",
+"DOMINANCIA": "Dominancia",
+  "CUADRANTE": "Cuadrante",
+  "FENOMENOS": "Fenómenos posibles",
+    "FENOMENOSEQ": "Fenómeno",
+  "CAUSAS": "Causas",
+  "EQUILIBRIO": "Equilibrio",
+  "DIFERENCIA": "Diferencia",
+  
+  "DOMINANCIA_AP": "Absoluta de la Producción",
+  "CUADRANTE_AP": "No",
+  "FENOMENO_AP": "Crisis ontológica. Deflación persistente con sobreexpansión.",
+  "CAUSA_AP": "La producción aumenta con el conocido efecto de Ley de la tendencia decreciente de la tasa de ganancia (LTDCG) mientras la circulación cae simultáneamente. La dialéctica se confirma como fundamento pues al manifestarse la causa dual se producen las crisis Ontológicas.",
+  
+  "DOMINANCIA_AC": "Absoluta de la Circulación",
+  "CUADRANTE_AC": "No",
+  "FENOMENO_AC": "Crisis ontológica. Estanflación, inflación persistente con estancamiento.",
+  "CAUSA_AC": "Simultáneamente la producción cae mientras la circulación aumenta. La dialéctica se confirma como fundamento pues al manifestarse la causa dual se producen las crisis Ontológicas.",
+
+    "DOMINANCIA_4": "Relativa de la Producción",
+  "CUADRANTE_4": "Cuarto",
+  "FENOMENOS_4": "Sobreproducción, insuficiencia de demanda, crisis de realización, acumulación de inventarios.",
+  "CAUSA_4": "La producción es excesiva porque ella misma aumenta relativa a la Circulación. Las variables desencadenantes son expansión productiva, aumento del plusvalor, sobreacumulación.",
+
+   "DOMINANCIA_3": "Relativa de la Producción",
+  "CUADRANTE_3": "Tercero",
+  "FENOMENOS_3": "Sobreproducción, insuficiencia de demanda, crisis de realización, acumulación de inventarios.",
+  "CAUSA_3": "La producción es excesiva porque la validación cae. Las variables desencadenantes son contracción monetaria, ajuste fiscal, restricción crediticia.",
+
+   "DOMINANCIA_2": "Relativa de la Circulación",
+  "CUADRANTE_2": "Segundo",
+  "FENOMENOS_2": "Inflación estructural, financiarización, burbujas de activos, crecimiento por deuda.",
+  "CAUSA_2": "La validación es excesiva porque ella misma aumenta relativamente a la Producción. Las variables desencadenantes son crédito, liquidez, gasto autónomo, emisión.",
+
+    "DOMINANCIA_1": "Relativa de la Circulación",
+  "CUADRANTE_1": "Primero",
+  "FENOMENOS_1": "Inflación estructural, financiarización, burbujas de activos, crecimiento por deuda.",
+  "CAUSA_1": "La validación es excesiva porque la producción cae. Las variables desencadenantes son caída de productividad, shocks reales, cuellos de botella.",
+
+   "DOMINANCIA_EXP_4": "Relativa de la Producción",
+  "CUADRANTE_EXP_4": "Cuarto",
+  "FENOMENOS_EXP_4": "Sobreproducción, insuficiencia de demanda, crisis de realización, acumulación de inventarios.",
+  "CAUSA_EXP_4": "La producción y la circulación aumentan simultáneamente de modo que la producción es excesiva relativa a la Circulación.",
+
+   "DOMINANCIA_EXP_2": "Relativa de la Circulación",
+  "CUADRANTE_EXP_2": "Segundo",
+  "FENOMENOS_EXP_2": "Inflación estructural, financiarización, burbujas de activos, crecimiento por deuda.",
+  "CAUSA_EXP_2": "La producción y la circulación aumentan simultáneamente de modo que la validación es excesiva relativamente a la Producción.",
+
+   "DOMINANCIA_REC_4": "Relativa de la Producción",
+  "CUADRANTE_REC_4": "Cuarto",
+  "FENOMENOS_REC_4": "Sobreproducción, insuficiencia de demanda, crisis de realización, acumulación de inventarios.",
+  "CAUSA_REC_4": "La producción y la circulación disminuyen simultáneamente de modo que la producción es excesiva relativa a la Circulación.",
+  
+  "DOMINANCIA_REC_2": "Relativa de la Circulación",
+  "CUADRANTE_REC_2": "Segundo",
+  "FENOMENOS_REC_2": "Inflación estructural, financiarización, burbujas de activos, crecimiento por deuda.",
+  "CAUSA_REC_2": "La producción y la circulación disminuyen simultáneamente de modo que la validación es excesiva relativamente a la Producción.",
+
+ "FENOMENO_EQUIL": "Equilibrio como atractor dinámico",
+  "CAUSA_EQUIL": "La forma social en la que la producción y la validación se sincronizan según el nivel de A₀ disponible. El equilibrio no es estable ni permanente, porque el valor es un ser en falta y su validación nunca está garantizada; pero tampoco es un simple punto de paso. Es un atractor dinámico, la configuración hacia la cual el sistema tiende cuando las tensiones de la dominancia se reducen. Desde allí, cualquier alteración en las relaciones sociales de producción o en el nivel de validación disponible vuelve a inclinar al sistema hacia uno u otro cuadrante, reabriendo el movimiento que caracteriza al capitalismo como sistema de validación incompleta."
+
+
+
+
+ 
+}

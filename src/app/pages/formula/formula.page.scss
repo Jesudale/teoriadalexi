@@ -147,30 +147,72 @@ ion-input[type=number]::part(native)::-webkit-outer-spin-button {
 ion-input[type=number]::part(native) {
   -moz-appearance: textfield; /* Firefox */
 }
-
 .resultado-card {
-  margin: 10px auto;       /* 👈 menos margen externo */
-  max-width: 700px;        /* 👈 controla ancho del card padre */
+  margin: 0;              /* 👈 elimina márgenes externos */
+  padding: 0 0;           /* 👈 elimina relleno lateral */
+  max-width: 100%;        /* 👈 ocupa todo el ancho disponible */
+  width: 100%;            /* 👈 asegura ancho completo */
+  border-radius: 8px;     /* 👈 opcional: esquinas suaves */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* 👈 opcional: sombra ligera */
 }
+
 
 .resultado-title {
   text-align: center;      /* 👈 centra el título */
   font-weight: bold;
+  
 }
 
+
+
+.resultado-card {
+  margin: 0;          /* 👈 sin márgenes externos */
+  padding: 0;         /* 👈 sin relleno interno */
+  width: 100%;        /* 👈 ocupa todo el ancho */
+  max-width: 100%;    /* 👈 asegura ancho completo */
+}
+
+/* 👇 sub-cards dentro del contenedor */
 .cards-container {
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: center;
   flex-wrap: wrap;
+  gap: 16px;          /* 👈 espacio entre cards, controlado */
+  justify-content: center;
 }
 
 .cards-container ion-card {
-  flex: 1 1 45%;
+  flex: 1 1 30%;      /* 👈 cada card ocupa ~1/3 del ancho */
   min-width: 220px;
   max-width: 300px;
+
+  /* elimina padding interno por defecto */
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+
+  margin: 0;          /* 👈 sin margen externo */
 }
+
+.cards-container2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Gráfico del Valor: más compacta */
+.cards-container2 .grafico-card {
+  flex: 1 1 30%;   /* 👈 ocupa menos espacio */
+  max-width: 250px;
+}
+
+/* Estado Macro económico: más amplia */
+.cards-container2 .estado-card {
+  flex: 2 1 65%;   /* 👈 ocupa más espacio */
+  min-width: 300px;
+}
+
+
 .glass-chip {
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.2);

@@ -44,6 +44,15 @@ export class FormulaPage implements OnInit, AfterViewInit {
     }
   ];
 
+    estado_econo: any = [
+    {
+      dominancia:"",
+      cuadrante:"",
+      fenomeno:"",
+      causa: ""
+    }
+  ];
+
  params = {
     a: 4,
     l: 394,
@@ -188,20 +197,16 @@ clasificarDiferencia(resultado: { produccion: number, circulacion: number, difer
 evaluarEconomia(resultado: { produccion: number, circulacion: number, diferencia: number, equilibrio: boolean | number }) {
   // Si equilibrio es 1 (o true)
   if (resultado.equilibrio === 1 || resultado.equilibrio === true) {
+
+     this.estado_econo[0] = {
+      fenomeno: "FENOMENO_EQUIL",
+      causa: "CAUSA_EQUIL"
+    };
+
     console.log("Economía en equilibrio dinámico");
     return "Economía en equilibrio dinámico";
   }
 
-
-
-  // Si equilibrio es false → comparar producción vs circulación
- /*  if (resultado.produccion > resultado.circulacion) {
-    console.log("Dominancia de la Producción");
-    return "Dominancia de la Producción";
-  } else {
-    console.log("Dominancia de la Circulación");
-    return "Dominancia de la Circulación";
-  } */
 
       this.compararEconomia(this.equilibrio,this.resultado)
 }
@@ -294,80 +299,111 @@ compararEconomia(
   const eq = equilibrio[0];
   const apiRes = api[0];
 
-  // Dominancia absoluta de la Producción
+// Dominancia absoluta de la Producción
   if (eq.produccion < apiRes.produccion && eq.circulacion > apiRes.circulacion) {
-    console.log("Dominancia absoluta de la Producción, crisis por la acción de la LBTCG");
-    return "Dominancia absoluta de la Producción, crisis por la acción de la LBTCG";
+    this.estado_econo[0] = {
+      dominancia: "DOMINANCIA_AP",
+      cuadrante: "CUADRANTE_AP",
+      fenomeno: "FENOMENO_AP",
+      causa: "CAUSA_AP"
+    };
+    return this.estado_econo[0];
   }
 
   // Dominancia absoluta de la Circulación
   if (apiRes.produccion < eq.produccion && apiRes.circulacion > eq.circulacion) {
-    console.log("Dominancia absoluta de la Circulación, Estanflacion");
-    return "Dominancia absoluta de la Circulación, Estanflacion";
+    this.estado_econo[0] = {
+      dominancia: "DOMINANCIA_AC",
+      cuadrante: "CUADRANTE_AC",
+      fenomeno: "FENOMENO_AC",
+      causa: "CAUSA_AC"
+    };
+    return this.estado_econo[0];
   }
 
-  // Dominancias relativas de la Produccion y la CirculacionI
-
-  // Dominancia relativa de la Produccion
+  // Dominancia relativa de la Producción
   if (apiRes.produccion > apiRes.circulacion) {
+    if (eq.produccion < apiRes.produccion && eq.circulacion === apiRes.circulacion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_4",
+        cuadrante: "CUADRANTE_4",
+        fenomeno: "FENOMENOS_4",
+        causa: "CAUSA_4"
+      };
+      return this.estado_econo[0];
+    }
 
-                // 👇 cuadrante cuatro en dominancia de la produccion
-            if (eq.produccion < apiRes.produccion && eq.circulacion === apiRes.circulacion) {
-              console.log("Cuadrante cuatro");
-              return "Cuadrante cuatro";
-            }
+    if (eq.produccion === apiRes.produccion && eq.circulacion > apiRes.circulacion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_3",
+        cuadrante: "CUADRANTE_3",
+        fenomeno: "FENOMENOS_3",
+        causa: "CAUSA_3"
+      };
+      return this.estado_econo[0];
+    }
 
-            // 👇 cuadrante tres 
-            if (eq.produccion === apiRes.produccion && eq.circulacion > apiRes.circulacion) {
-              console.log("Cuadrante tres");
-              return "Cuadrante tres";
-            }
+    if (eq.produccion < apiRes.produccion && eq.circulacion < apiRes.circulacion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_EXP_4",
+        cuadrante: "CUADRANTE_EXP_4",
+        fenomeno: "FENOMENOS_EXP_4",
+        causa: "CAUSA_EXP_4"
+      };
+      return this.estado_econo[0];
+    }
 
-            // 👇 expansión económica con fenómenos del cuadrante cuatro
-            if (eq.produccion < apiRes.produccion && eq.circulacion < apiRes.circulacion) {
-              console.log("Expansión de la economía con las manifestaciones de los fenómenos del cuadrante cuatro");
-              return "Expansión de la economía con las manifestaciones de los fenómenos del cuadrante cuatro";
-            }
-
-            // 👇 recesión económica con fenómenos del cuadrante cuatro
-            if (apiRes.produccion < eq.produccion && apiRes.circulacion < eq.circulacion) {
-              console.log("Recesión de la economía con manifestación de los fenómenos del cuadrante cuatro");
-              return "Recesión de la economía con manifestación de los fenómenos del cuadrante cuatro";
-            }
-
-    console.log("Dominancia Relativa de la Producción");
-    return "Dominancia Relativa de la Producción";
+    if (apiRes.produccion < eq.produccion && apiRes.circulacion < eq.circulacion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_REC_4",
+        cuadrante: "CUADRANTE_REC_4",
+        fenomeno: "FENOMENOS_REC_4",
+        causa: "CAUSA_REC_4"
+      };
+      return this.estado_econo[0];
+    }
   } else {
+    // Dominancia relativa de la Circulación
+    if (eq.circulacion < apiRes.circulacion && eq.produccion === apiRes.produccion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_2",
+        cuadrante: "CUADRANTE_2",
+        fenomeno: "FENOMENOS_2",
+        causa: "CAUSA_2"
+      };
+      return this.estado_econo[0];
+    }
 
-    // Dominancia relativa de la CirculacionI  
-    
-        // 👇 cuadrante dos en dominancia relativa de la circulación
-        if (eq.circulacion < apiRes.circulacion && eq.produccion === apiRes.produccion) {
-          console.log("Cuadrante dos");
-          return "Cuadrante dos";
-        }
+    if (eq.circulacion === apiRes.circulacion && eq.produccion > apiRes.produccion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_1",
+        cuadrante: "CUADRANTE_1",
+        fenomeno: "FENOMENOS_1",
+        causa: "CAUSA_1"
+      };
+      return this.estado_econo[0];
+    }
 
-        // 👇 cuadrante uno en dominancia relativa de la circulación
-        if (eq.circulacion === apiRes.circulacion && eq.produccion > apiRes.produccion) {
-          console.log("Cuadrante uno");
-          return "Cuadrante uno";
-        }
+    if (eq.circulacion < apiRes.circulacion && eq.produccion < apiRes.produccion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_EXP_2",
+        cuadrante: "CUADRANTE_EXP_2",
+        fenomeno: "FENOMENOS_EXP_2",
+        causa: "CAUSA_EXP_2"
+      };
+      return this.estado_econo[0];
+    }
 
-        // 👇 expansión económica con fenómenos del cuadrante dos
-        if (eq.circulacion < apiRes.circulacion && eq.produccion < apiRes.produccion) {
-          console.log("Expansión de la economía con manifestación de los fenómenos del cuadrante dos");
-          return "Expansión de la economía con manifestación de los fenómenos del cuadrante dos";
-        }
-                    // 👇 recesión económica con fenómenos del cuadrante dos
-            if (apiRes.produccion < eq.produccion && apiRes.circulacion < eq.circulacion) {
-              console.log("Recesión de la economía con manifestación de los fenómenos del cuadrante dos");
-              return "Recesión de la economía con manifestación de los fenómenos del cuadrante dos";
-            }
-        
-    console.log("Dominancia Relativa de la Circulación");
-    return "Dominancia Relativa de la Circulación";
+    if (apiRes.produccion < eq.produccion && apiRes.circulacion < eq.circulacion) {
+      this.estado_econo[0] = {
+        dominancia: "DOMINANCIA_REC_2",
+        cuadrante: "CUADRANTE_REC_2",
+        fenomeno: "FENOMENOS_REC_2",
+        causa: "CAUSA_REC_2"
+      };
+      return this.estado_econo[0];
+    }
   }
-
 
 }
 

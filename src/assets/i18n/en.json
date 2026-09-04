@@ -1,4 +1,69 @@
 
 
 
-{ "HELLO": "Hello world", "LOGIN": "Log in", "PRODUCCION":"Production","CIRCULACION":"Circulation" }
+{ "HELLO": "Hello world",
+  "LOGIN": "Log in",
+  "PRODUCCION": "Production",
+  "CIRCULACION": "Circulation",
+
+  "DOMINANCIA": "Dominance",
+  "CUADRANTE": "Quadrant",
+  "FENOMENOS": "Possible phenomena",
+  "FENOMENOSEQ": "Phenomenon",
+  "CAUSAS": "Causes",
+  "EQUILIBRIO": "Equilibrium",
+  "DIFERENCIA": "Difference",
+
+  "DOMINANCIA_AP": "Absolute Production",
+  "CUADRANTE_AP": "None",
+  "FENOMENO_AP": "Ontological crisis. Persistent deflation with overexpansion.",
+  "CAUSA_AP": "Production increases with the well-known effect of the Law of the Tendency of the Rate of Profit to Fall (LTRPF) while circulation simultaneously declines. Dialectics is confirmed as the foundation since, when the dual cause manifests, Ontological crises occur.",
+
+  "DOMINANCIA_AC": "Absolute Circulation",
+  "CUADRANTE_AC": "None",
+  "FENOMENO_AC": "Ontological crisis. Stagflation, persistent inflation with stagnation.",
+  "CAUSA_AC": "Production simultaneously falls while circulation increases. Dialectics is confirmed as the foundation since, when the dual cause manifests, Ontological crises occur.",
+
+  "DOMINANCIA_4": "Relative Production",
+  "CUADRANTE_4": "Fourth",
+  "FENOMENOS_4": "Overproduction, demand insufficiency, realization crisis, inventory accumulation.",
+  "CAUSA_4": "Production is excessive because it increases relative to Circulation. The triggering variables are productive expansion, increase in surplus value, overaccumulation.",
+
+  "DOMINANCIA_3": "Relative Production",
+  "CUADRANTE_3": "Third",
+  "FENOMENOS_3": "Overproduction, demand insufficiency, realization crisis, inventory accumulation.",
+  "CAUSA_3": "Production is excessive because validation falls. The triggering variables are monetary contraction, fiscal adjustment, credit restriction.",
+
+  "DOMINANCIA_2": "Relative Circulation",
+  "CUADRANTE_2": "Second",
+  "FENOMENOS_2": "Structural inflation, financialization, asset bubbles, debt-driven growth.",
+  "CAUSA_2": "Validation is excessive because it increases relative to Production. The triggering variables are credit, liquidity, autonomous spending, issuance.",
+
+  "DOMINANCIA_1": "Relative Circulation",
+  "CUADRANTE_1": "First",
+  "FENOMENOS_1": "Structural inflation, financialization, asset bubbles, debt-driven growth.",
+  "CAUSA_1": "Validation is excessive because production falls. The triggering variables are productivity decline, real shocks, bottlenecks.",
+
+  "DOMINANCIA_EXP_4": "Relative Production",
+  "CUADRANTE_EXP_4": "Fourth",
+  "FENOMENOS_EXP_4": "Overproduction, demand insufficiency, realization crisis, inventory accumulation.",
+  "CAUSA_EXP_4": "Production and circulation increase simultaneously so that production is excessive relative to Circulation.",
+
+  "DOMINANCIA_EXP_2": "Relative Circulation",
+  "CUADRANTE_EXP_2": "Second",
+  "FENOMENOS_EXP_2": "Structural inflation, financialization, asset bubbles, debt-driven growth.",
+  "CAUSA_EXP_2": "Production and circulation increase simultaneously so that validation is excessive relative to Production.",
+
+  "DOMINANCIA_REC_4": "Relative Production",
+  "CUADRANTE_REC_4": "Fourth",
+  "FENOMENOS_REC_4": "Overproduction, demand insufficiency, realization crisis, inventory accumulation.",
+  "CAUSA_REC_4": "Production and circulation decrease simultaneously so that production is excessive relative to Circulation.",
+
+  "DOMINANCIA_REC_2": "Relative Circulation",
+  "CUADRANTE_REC_2": "Second",
+  "FENOMENOS_REC_2": "Structural inflation, financialization, asset bubbles, debt-driven growth.",
+  "CAUSA_REC_2": "Production and circulation decrease simultaneously so that validation is excessive relative to Production.",
+
+  "FENOMENO_EQUIL": "Equilibrium as a dynamic attractor",
+  "CAUSA_EQUIL": "The social form in which production and validation synchronize according to the available A₀ level. Equilibrium is neither stable nor permanent, because value is a being in lack and its validation is never guaranteed; but it is not a mere passing point either. It is a dynamic attractor, the configuration toward which the system tends when dominance tensions are reduced. From there, any alteration in the social relations of production or in the level of available validation tilts the system toward one quadrant or another, reopening the movement that characterizes capitalism as a system of incomplete validation."
+ }
