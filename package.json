@@ -32,6 +32,8 @@
     "@supabase/supabase-js": "^2.0.0",
     "chart.js": "^4.5.1",
     "ionicons": "^6.0.3",
+    "katex": "^0.18.6",
+    "mathjax": "^4.1.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

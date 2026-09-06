@@ -9,6 +9,8 @@ import { Chart, registerables,ChartConfiguration  } from 'chart.js';
 import { SupabaseApiService } from './../../services/supabase-api-service.service';
 import { TranslateService } from '@ngx-translate/core'; 
 
+declare var MathJax: any;
+import katex from 'katex';
 
 @Component({
   selector: 'app-formula',
@@ -107,7 +109,28 @@ establecerPuntoPartida() {
   }
 }
 
+
  currentLang = 'es';
+
+
+formula = 'AL^{\\omega} K^{\\pi} = \\frac{1}{1-(\\omega + c_p \\pi)} \\cdot A_0 \\cdot e';
+variableAjustada:boolean=false 
+
+respuestaAjustada= 
+[
+  {
+    "produccion_original": "690.1535498648917945794787857641912",
+    "circulacion_original": "1035.00000000000000000",
+    "diferencia_original": "-344.8464501351082054205212142358088",
+    "equilibrio_original": false,
+    "nuevo_a0": null,
+    "nuevo_l": "774.14193656089752556",
+    "produccion_final": "1035.000000000000082635840987986446468",
+    "circulacion_final": "1035.00000000000000000",
+    "diferencia_final": "0.000000000000082635840987986446468",
+    "equilibrio_final": true
+  }
+]
 
   constructor(
         private authService: AuthService,
@@ -130,7 +153,16 @@ establecerPuntoPartida() {
 
    ngAfterViewInit() {
     this.initCharts();
-this.initChart();
+      this.initChart();
+      if (MathJax) {
+          MathJax.typesetPromise();
+        }
+        const el = document.getElementById('formula');
+    if (el) {
+      katex.render(this.formula, el, {
+        throwOnError: false
+      });
+    }
   }
 
   
@@ -272,6 +304,7 @@ initChart() {
   }
 
   calcular() {
+    this.variableAjustada=false
 this.params.omega = parseFloat(this.params.omega.toFixed(1));
   this.params.pi = parseFloat((1 - this.params.omega).toFixed(1));
 
@@ -284,6 +317,54 @@ this.params.omega = parseFloat(this.params.omega.toFixed(1));
        // this.calcularPorcentaje(this.resultado[0]);
         this.clasificarDiferencia(this.resultado[0]);
 
+      },
+      error: (err) => {
+        console.error('Error:', err);
+      }
+    });
+  }
+
+    buscarEquilibrio() {
+
+
+    this.supabaseApi.buscarEquilibrio(this.params).subscribe({
+      next: (res) => {
+        console.log('Resultado buscarEquilibrio:', res);
+        
+        this.respuestaAjustada=res[0]
+            // Actualizar resultado con los valores finales de la respuesta
+            this.resultado = [{
+              produccion: res[0].produccion_final,
+              circulacion: res[0].circulacion_final,
+              diferencia: res[0].diferencia_final,
+              equilibrio: res[0].equilibrio_final
+            }];
+
+            // Actualizar equilibrio (puedes copiar el mismo objeto o aplicar lógica distinta)
+            this.equilibrio = [{
+              produccion: res[0].produccion_final,
+              circulacion: res[0].circulacion_final,
+              diferencia: res[0].diferencia_final,
+              equilibrio: res[0].equilibrio_final
+            }];
+
+            // Actualizar solo l y a0 si existen en la respuesta
+            if (res[0].nuevo_l !== null) {
+              this.params = { ...this.params, l: res[0].nuevo_l };
+              this.variableAjustada=true
+            }
+            if (res[0].nuevo_a0 !== null) {
+              this.params = { ...this.params, a0: res[0].nuevo_a0 };
+              this.variableAjustada=true
+            }
+
+
+       // this.calcularPorcentaje(this.resultado[0]);
+        this.clasificarDiferencia(this.resultado[0]);
+        this.updateCharts();
+        this.updateChart()
+       // this.calcularPorcentaje(this.resultado[0]);
+       
       },
       error: (err) => {
         console.error('Error:', err);
@@ -438,7 +519,7 @@ compararEconomia(
     this.distribucionChart = new Chart(this.distribucionRef.nativeElement.getContext('2d')!, {
       type: 'bar',
       data: {
-        labels: ['Salarios', 'Beneficios'],
+        labels: ['Salarios (w)','Beneficios (π)'],
         datasets: [{
           label: 'Distribución del ingreso',
           data: [this.params.omega, this.params.pi],

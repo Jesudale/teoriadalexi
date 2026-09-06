@@ -158,11 +158,12 @@
                          <!-- Card principal -->
           <ion-card class="resultado-card">
               <ion-card-header>
-                <ion-card-title class="resultado-title">Valores de la fórmula</ion-card-title>
+                <ion-card-title class="resultado-title"> <div id="formula"></div>
+</ion-card-title>
               </ion-card-header>
               <ion-card-content>
 
-                      <div class="cards-container">
+                <div class="cards-container">
                         <ion-card>
                           <ion-card-header>
                             <ion-card-title>Producción</ion-card-title>
@@ -217,10 +218,11 @@
           <ion-card-title>Gráfico del Valor</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <canvas #resultadoChart style="max-width: 200px; max-height: 200px;"></canvas>
-          <ion-button [disabled]="!resultado[0]?.equilibrio" expand="block" (click)="establecerPuntoPartida()">
-            Fijar valor de partida
-          </ion-button>
+            <div style="width:100%; height:300px;">
+            <canvas #resultadoChart ></canvas>
+          
+            </div>
+          
         </ion-card-content>
       </ion-card>
 
@@ -281,14 +283,40 @@
 
 <!-- Sub-card: Estado Macro económico -->
 <ion-card>
+
+
   <ion-card-header>
-    <ion-card-title>Buscar equilibrio</ion-card-title>
+    
+
+     <!-- Bloque Ajuste-->
+    <div *ngIf="variableAjustada">
+      <h3>Ajuste</h3>
+      <p *ngIf="respuestaAjustada.nuevo_l !== null">
+        Se modificó <strong>L</strong> con valor {{ respuestaAjustada.nuevo_l }}
+      </p>
+      <p *ngIf="respuestaAjustada.nuevo_a0 !== null">
+        Se modificó <strong>A₀</strong> con valor {{ respuestaAjustada.nuevo_a0 }}
+      </p>
+    </div> 
+    
+    <ion-card-title *ngIf="!resultado[0]?.equilibrio">Buscar equilibrio</ion-card-title>
+        <ion-card-title *ngIf="resultado[0]?.equilibrio">Fijar valor de partida</ion-card-title>
+
   </ion-card-header>
 
+          <ion-button *ngIf="resultado[0]?.equilibrio" expand="block" (click)="establecerPuntoPartida()">
+            Fijar valor de partida
+          </ion-button>
+          <ion-button *ngIf="!resultado[0]?.equilibrio" expand="block" (click)="buscarEquilibrio()">
+            Buscar equilibrio
+          </ion-button>
+
+    
   <ion-card-content>
- 
+
   </ion-card-content>
 </ion-card>
+
 
 
 

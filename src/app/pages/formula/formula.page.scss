@@ -202,15 +202,31 @@ ion-input[type=number]::part(native) {
 
 /* Gráfico del Valor: más compacta */
 .cards-container2 .grafico-card {
-  flex: 1 1 30%;   /* 👈 ocupa menos espacio */
-  max-width: 250px;
+  flex: 1 1 40%;   /* 👈 dale un poco más de espacio */
+  max-width: none; /* 👈 elimina el límite fijo */
 }
+
+.grafico-card ion-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;   /* 👈 altura fija para el gráfico */
+}
+
+.grafico-card canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
 
 /* Estado Macro económico: más amplia */
 .cards-container2 .estado-card {
   flex: 2 1 65%;   /* 👈 ocupa más espacio */
   min-width: 300px;
 }
+
+
 
 
 .glass-chip {
@@ -229,4 +245,38 @@ ion-input[type=number]::part(native) {
   --background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 20px;
+}
+
+.formula {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  white-space: pre-wrap; /* asegura que no se corte */
+  text-align: center;
+  margin: 10px 0;
+}
+
+
+
+
+.grafico-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.grafico-canvas {
+  flex: 1 1 30%;   /* 👈 el gráfico ocupa menos espacio */
+  min-height: 200px;
+}
+
+.grafico-info {
+  flex: 1 1 70%;   /* 👈 los textos ocupan más espacio */
+  font-size: 14px;
+}
+
+.grafico-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
