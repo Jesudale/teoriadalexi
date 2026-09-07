@@ -12,7 +12,7 @@
 
     <!-- Título centrado -->
     <ion-title class="ion-text-center">
-      Dashboard Unification Formula
+      Dashboard 
     </ion-title>
 
     <!-- Logout a la derecha -->
@@ -109,7 +109,7 @@
   <!-- Distribución del ingreso -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Distribución del ingreso</ion-card-title>
+      <ion-card-title>{{ 'incomeDistribution' | translate }}</ion-card-title>
     </ion-card-header>
 
                 <ion-card-content>
@@ -166,7 +166,7 @@
                 <div class="cards-container">
                         <ion-card>
                           <ion-card-header>
-                            <ion-card-title>Producción</ion-card-title>
+                            <ion-card-title>{{ 'production' | translate }}</ion-card-title>
                           </ion-card-header>
                           <ion-card-content>
                             <canvas #produccionChart></canvas>
@@ -175,7 +175,7 @@
 
                         <ion-card>
                           <ion-card-header>
-                            <ion-card-title>Circulación</ion-card-title>
+                            <ion-card-title>{{ 'circulation' | translate }}</ion-card-title>
                           </ion-card-header>
                           <ion-card-content>
                             <canvas #circulacionChart></canvas>
@@ -184,7 +184,7 @@
 
                         <ion-card>
                           <ion-card-header>
-                            <ion-card-title>Distribución del ingreso</ion-card-title>
+                            <ion-card-title>{{ 'incomeDistributionAlt' | translate }}</ion-card-title>
                           </ion-card-header>
                           <ion-card-content>
                             <canvas #distribucionChart></canvas>
@@ -195,7 +195,7 @@
                       </div>
                         <!-- Botón centrado debajo de las tres cards -->
                       <div class="boton-container">
-                        <ion-button expand="block" size="small" (click)="calcular()"> Calcular estado Macro económico</ion-button>
+                        <ion-button expand="block" size="small" (click)="calcular()"> {{ 'calculateMacroState' | translate }}</ion-button>
                       </div>
 
 
@@ -207,7 +207,7 @@
              <!-- Card principal -->
           <ion-card class="resultado-card">
   <ion-card-header>
-    <ion-card-title class="resultado-title">Resultado</ion-card-title>
+    <ion-card-title class="resultado-title">{{ 'result' | translate }}</ion-card-title>
   </ion-card-header>
 
   <ion-card-content>
@@ -215,7 +215,7 @@
       <!-- Sub-card: Gráfico del Valor -->
       <ion-card class="grafico-card">
         <ion-card-header>
-          <ion-card-title>Gráfico del Valor</ion-card-title>
+          <ion-card-title>{{ 'valueGraph' | translate }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
             <div style="width:100%; height:300px;">
@@ -229,7 +229,7 @@
       <!-- Sub-card: Estado Macro económico -->
       <ion-card class="estado-card">
         <ion-card-header>
-          <ion-card-title>Estado Macro económico</ion-card-title>
+          <ion-card-title>{{ 'macroState' | translate }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
 
@@ -290,25 +290,34 @@
 
      <!-- Bloque Ajuste-->
     <div *ngIf="variableAjustada">
-      <h3>Ajuste</h3>
+      <h3>{{ 'adjustment' | translate }}</h3>
       <p *ngIf="respuestaAjustada.nuevo_l !== null">
-        Se modificó <strong>L</strong> con valor {{ respuestaAjustada.nuevo_l }}
+        {{ 'increaseLivingLabor' | translate }}  <strong>L</strong> {{ 'upToValue' | translate }} {{ respuestaAjustada.nuevo_l.toFixed(2) }} {{ 'workHours' | translate }}
       </p>
       <p *ngIf="respuestaAjustada.nuevo_a0 !== null">
-        Se modificó <strong>A₀</strong> con valor {{ respuestaAjustada.nuevo_a0 }}
+        {{ 'increaseAutonomousDemand' | translate }} <strong>A₀</strong> {{ 'withValue' | translate }} {{ respuestaAjustada.nuevo_a0.toFixed(2) }} {{ 'monetaryUnits' | translate }}
       </p>
     </div> 
+
+    <ion-card-title *ngIf="!resultado[0]?.equilibrio&&resultado[0]?.diferencia < 0">{{ 'dynamicEquilibriumProduction' | translate }}</ion-card-title>
     
-    <ion-card-title *ngIf="!resultado[0]?.equilibrio">Buscar equilibrio</ion-card-title>
-        <ion-card-title *ngIf="resultado[0]?.equilibrio">Fijar valor de partida</ion-card-title>
+    <!-- Caso diferencia positiva -->
+    <ion-card-title *ngIf="!resultado[0]?.equilibrio&&resultado[0]?.diferencia > 0">
+      {{ 'dynamicEquilibriumDemand' | translate }}
+    </ion-card-title>
+
+<!--               <p *ngIf="resultado[0]?.equilibrio">
+                La economía está en equilibrio 
+              </p> -->
 
   </ion-card-header>
 
-          <ion-button *ngIf="resultado[0]?.equilibrio" expand="block" (click)="establecerPuntoPartida()">
-            Fijar valor de partida
+          <!-- <ion-button *ngIf="resultado[0]?.equilibrio" expand="block" (click)="establecerPuntoPartida()">
+            Fijar valor de referencia
           </ion-button>
+           -->
           <ion-button *ngIf="!resultado[0]?.equilibrio" expand="block" (click)="buscarEquilibrio()">
-            Buscar equilibrio
+            {{ 'searchEquilibrium' | translate }}
           </ion-button>
 
     

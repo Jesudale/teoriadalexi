@@ -65,5 +65,24 @@
   "CAUSA_REC_2": "Production and circulation decrease simultaneously so that validation is excessive relative to Production.",
 
   "FENOMENO_EQUIL": "Equilibrium as a dynamic attractor",
-  "CAUSA_EQUIL": "The social form in which production and validation synchronize according to the available A₀ level. Equilibrium is neither stable nor permanent, because value is a being in lack and its validation is never guaranteed; but it is not a mere passing point either. It is a dynamic attractor, the configuration toward which the system tends when dominance tensions are reduced. From there, any alteration in the social relations of production or in the level of available validation tilts the system toward one quadrant or another, reopening the movement that characterizes capitalism as a system of incomplete validation."
- }
+  "CAUSA_EQUIL": "The social form in which production and validation synchronize according to the available A₀ level. Equilibrium is neither stable nor permanent, because value is a being in lack and its validation is never guaranteed; but it is not a mere passing point either. It is a dynamic attractor, the configuration toward which the system tends when dominance tensions are reduced. From there, any alteration in the social relations of production or in the level of available validation tilts the system toward one quadrant or another, reopening the movement that characterizes capitalism as a system of incomplete validation.",
+  "incomeDistribution": "Income Distribution",
+  "production": "Production",
+  "circulation": "Circulation",
+  "incomeDistributionAlt": "Income Distribution",
+  "calculateMacroState": "Calculate Macroeconomic State",
+  "result": "Result",
+  "valueGraph": "Value Graph",
+  "macroState": "Macroeconomic State",
+  "adjustment": "Adjustment",
+  "increaseLivingLabor": "An increase in living labor was carried out",
+  "upToValue": "up to a value of",
+  "workHours": "work hours",
+  "increaseAutonomousDemand": "An increase in autonomous demand was carried out",
+  "withValue": "with value",
+  "monetaryUnits": "monetary units",
+  "dynamicEquilibriumProduction": "This option allows determining the amount of work hours (L) that must be increased in the productive sector so that, in relation to circulation, a dynamic equilibrium is reached, keeping the other variables of the system constant.",
+  "dynamicEquilibriumDemand": "This option allows determining the magnitude of Autonomous Demand (A₀), expressed in monetary units, that must be increased in the circulation sector so that, in interaction with production, a dynamic equilibrium is achieved, keeping the other variables of the system constant.",
+  "searchEquilibrium": "Search Equilibrium"
+
+}

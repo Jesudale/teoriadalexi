@@ -61,10 +61,26 @@
   "CAUSA_REC_2": "La producción y la circulación disminuyen simultáneamente de modo que la validación es excesiva relativamente a la Producción.",
 
  "FENOMENO_EQUIL": "Equilibrio como atractor dinámico",
-  "CAUSA_EQUIL": "La forma social en la que la producción y la validación se sincronizan según el nivel de A₀ disponible. El equilibrio no es estable ni permanente, porque el valor es un ser en falta y su validación nunca está garantizada; pero tampoco es un simple punto de paso. Es un atractor dinámico, la configuración hacia la cual el sistema tiende cuando las tensiones de la dominancia se reducen. Desde allí, cualquier alteración en las relaciones sociales de producción o en el nivel de validación disponible vuelve a inclinar al sistema hacia uno u otro cuadrante, reabriendo el movimiento que caracteriza al capitalismo como sistema de validación incompleta."
+  "CAUSA_EQUIL": "La forma social en la que la producción y la validación se sincronizan según el nivel de A₀ disponible. El equilibrio no es estable ni permanente, porque el valor es un ser en falta y su validación nunca está garantizada; pero tampoco es un simple punto de paso. Es un atractor dinámico, la configuración hacia la cual el sistema tiende cuando las tensiones de la dominancia se reducen. Desde allí, cualquier alteración en las relaciones sociales de producción o en el nivel de validación disponible vuelve a inclinar al sistema hacia uno u otro cuadrante, reabriendo el movimiento que caracteriza al capitalismo como sistema de validación incompleta.",
 
-
-
+  "incomeDistribution": "Distribución del ingreso",
+  "production": "Producción",
+  "circulation": "Circulación",
+  "incomeDistributionAlt": "Distribución del ingreso",
+  "calculateMacroState": "Calcular estado Macro económico",
+  "result": "Resultado",
+  "valueGraph": "Gráfico del Valor",
+  "macroState": "Estado Macro económico",
+  "adjustment": "Ajuste",
+  "increaseLivingLabor": "Se efectuó un aumento del trabajo vivo",
+  "upToValue": "hasta un valor de",
+  "workHours": "horas de trabajo",
+  "increaseAutonomousDemand": "Se efectuó un aumento de la demanda autónoma",
+  "withValue": "con valor",
+  "monetaryUnits": "unidades monetarias",
+  "dynamicEquilibriumProduction": "Esta opción permite determinar la cantidad de horas de trabajo (L) que deben incrementarse en el sector productivo para que, en relación con la circulación, se alcance un equilibrio dinámico, manteniendo constantes las demás variables del sistema.",
+  "dynamicEquilibriumDemand": "Esta opción permite determinar la magnitud de la Demanda Autónoma (A₀), expresada en unidades monetarias, que debe incrementarse en el sector de la circulación para que, en interacción con la producción, se logre un equilibrio dinámico, manteniendo constantes las demás variables del sistema.",
+  "searchEquilibrium": "Buscar equilibrio"
 
  
 }

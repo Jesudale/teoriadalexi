@@ -30,18 +30,18 @@ export class FormulaPage implements OnInit, AfterViewInit {
 
   resultado: any = [
     {
-      produccion: 690.1535498648918,
+      produccion: 690.15,
       circulacion: 690.0,
-      diferencia: 0.1535498648918,
+      diferencia: 0.15,
       equilibrio: true
     }
   ];
 
   equilibrio: any = [
     {
-      produccion: 690.1535498648918,
+      produccion: 690.15,
       circulacion: 690.0,
-      diferencia: 0.1535498648918,
+      diferencia: 0.15,
       equilibrio: true
     }
   ];
@@ -119,15 +119,15 @@ variableAjustada:boolean=false
 respuestaAjustada= 
 [
   {
-    "produccion_original": "690.1535498648917945794787857641912",
-    "circulacion_original": "1035.00000000000000000",
-    "diferencia_original": "-344.8464501351082054205212142358088",
+    "produccion_original": 690.15,
+    "circulacion_original": 1035.00,
+    "diferencia_original": -344.84,
     "equilibrio_original": false,
     "nuevo_a0": null,
-    "nuevo_l": "774.14193656089752556",
-    "produccion_final": "1035.000000000000082635840987986446468",
-    "circulacion_final": "1035.00000000000000000",
-    "diferencia_final": "0.000000000000082635840987986446468",
+    "nuevo_l": 774.14,
+    "produccion_final": 1035.00,
+    "circulacion_final": 1035.00,
+    "diferencia_final": 0.00,
     "equilibrio_final": true
   }
 ]
@@ -324,6 +324,17 @@ this.params.omega = parseFloat(this.params.omega.toFixed(1));
     });
   }
 
+   ajustarDecimales(obj: any): any {
+  const ajustado: any = {};
+  for (const key in obj) {
+    if (obj[key] !== null && typeof obj[key] === 'number') {
+      ajustado[key] = parseFloat(obj[key].toFixed(2));
+    } else {
+      ajustado[key] = obj[key];
+    }
+  }
+  return ajustado;
+}
     buscarEquilibrio() {
 
 
@@ -331,32 +342,35 @@ this.params.omega = parseFloat(this.params.omega.toFixed(1));
       next: (res) => {
         console.log('Resultado buscarEquilibrio:', res);
         
-        this.respuestaAjustada=res[0]
-            // Actualizar resultado con los valores finales de la respuesta
-            this.resultado = [{
-              produccion: res[0].produccion_final,
-              circulacion: res[0].circulacion_final,
-              diferencia: res[0].diferencia_final,
-              equilibrio: res[0].equilibrio_final
-            }];
+        // Ajustar todas las variables a dos decimales
+        // Uso:
+        this.respuestaAjustada = this.ajustarDecimales(res[0]);
 
-            // Actualizar equilibrio (puedes copiar el mismo objeto o aplicar lógica distinta)
-            this.equilibrio = [{
-              produccion: res[0].produccion_final,
-              circulacion: res[0].circulacion_final,
-              diferencia: res[0].diferencia_final,
-              equilibrio: res[0].equilibrio_final
-            }];
+        // Actualizar resultado con los valores finales de la respuesta
+        this.resultado = [{
+          produccion: parseFloat(res[0].produccion_final.toFixed(2)),
+          circulacion: parseFloat(res[0].circulacion_final.toFixed(2)),
+          diferencia: parseFloat(res[0].diferencia_final.toFixed(2)),
+          equilibrio: res[0].equilibrio_final
+        }];
 
-            // Actualizar solo l y a0 si existen en la respuesta
-            if (res[0].nuevo_l !== null) {
-              this.params = { ...this.params, l: res[0].nuevo_l };
-              this.variableAjustada=true
-            }
-            if (res[0].nuevo_a0 !== null) {
-              this.params = { ...this.params, a0: res[0].nuevo_a0 };
-              this.variableAjustada=true
-            }
+        // Actualizar equilibrio (puedes copiar el mismo objeto o aplicar lógica distinta)
+        this.equilibrio = [{
+          produccion: parseFloat(res[0].produccion_final.toFixed(2)),
+          circulacion: parseFloat(res[0].circulacion_final.toFixed(2)),
+          diferencia: parseFloat(res[0].diferencia_final.toFixed(2)),
+          equilibrio: res[0].equilibrio_final
+        }];
+
+        // Actualizar solo l y a0 si existen en la respuesta
+        if (res[0].nuevo_l !== null) {
+          this.params = { ...this.params, l: parseFloat(res[0].nuevo_l.toFixed(2)) };
+          this.variableAjustada = true;
+        }
+        if (res[0].nuevo_a0 !== null) {
+          this.params = { ...this.params, a0: parseFloat(res[0].nuevo_a0.toFixed(2)) };
+          this.variableAjustada = true;
+        }
 
 
        // this.calcularPorcentaje(this.resultado[0]);
