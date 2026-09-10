@@ -27,6 +27,40 @@
 
 <ion-content>
 
+  <ion-card>
+  <ion-card-header>
+    <ion-card-title>Datos Económicos</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <!-- Selector de País -->
+    <ion-item>
+      <ion-label>País</ion-label>
+      <ion-select [(ngModel)]="paisSeleccionado" (ionChange)="cargarDatos()">
+        <ion-select-option value="Mexico">🇲🇽 México</ion-select-option>
+        <ion-select-option value="España">🇪🇸 España</ion-select-option>
+        <ion-select-option value="Cuba">🇨🇺 Cuba</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Selector de Año -->
+    <ion-item>
+      <ion-label>Año</ion-label>
+      <ion-select [(ngModel)]="anioSeleccionado" (ionChange)="cargarDatos()">
+        <ion-select-option *ngFor="let anio of listaAnios" [value]="anio">
+          {{ anio }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Botón de consulta -->
+    <ion-button expand="block" (click)="consultarPostgres()">
+      Cargar datos
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+
+
   <div class="layout">
     <!-- Columna izquierda -->
     <div class="col izquierda">

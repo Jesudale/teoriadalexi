@@ -132,6 +132,10 @@ respuestaAjustada=
   }
 ]
 
+paisSeleccionado: string = 'Mexico';
+anioSeleccionado: number = 2023;
+listaAnios: number[] = [2020, 2021, 2022, 2023];
+
   constructor(
         private authService: AuthService,
         private alertController: AlertController,
@@ -165,6 +169,15 @@ respuestaAjustada=
     }
   }
 
+cargarDatos() {
+  // Query dinámica:
+  // SELECT * FROM economicos WHERE pais = paisSeleccionado AND anio = anioSeleccionado;
+}
+
+consultarPostgres() {
+  // Llamada al backend que consulta PostgreSQL y devuelve JSON
+  // Luego actualizas los gráficos en el dashboard
+}
   
   async changeLang(lang: string) {
   const loader = await this.loadingController.create({
