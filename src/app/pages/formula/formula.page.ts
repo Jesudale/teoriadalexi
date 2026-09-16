@@ -113,7 +113,7 @@ establecerPuntoPartida() {
  currentLang = 'es';
 
 
-formula = 'AL^{\\omega} K^{\\pi} = \\frac{1}{1-(\\omega + c_p \\pi)} \\cdot A_0 \\cdot e';
+formula = 'AL^{\\omega} K^{\\pi} = \\frac{1}{1-(\\omega + c_p \\pi)} \\cdot A_0 ';
 variableAjustada:boolean=false 
 
 respuestaAjustada= 
@@ -132,9 +132,94 @@ respuestaAjustada=
   }
 ]
 
-paisSeleccionado: string = 'Mexico';
-anioSeleccionado: number = 2023;
-listaAnios: number[] = [2020, 2021, 2022, 2023];
+paisSeleccionado: string = '';
+listaAnios: number[] = [];
+
+anioSeleccionado: number | null = null;
+
+datosPorPais: { [key: string]: { flag: string, years: number[] } } = {
+  "Chad": { flag: "🇹🇩", years: [1967, 1968] },
+  "Fiji": { flag: "🇫🇯", years: [1987, 1998] },
+  "Peru": { flag: "🇵🇪", years: [1955, 1981, 1986] },
+  "Benin": { flag: "🇧🇯", years: [2011] },
+  "China": { flag: "🇨🇳", years: [1981, 1982, 1983] },
+  "Egypt": { flag: "🇪🇬", years: [1968, 1971, 1982] },
+  "India": { flag: "🇮🇳", years: [1992, 1994, 1997, 2001, 2004, 2009] },
+  "Italy": { flag: "🇮🇹", years: [1965, 1966, 1967, 1968, 1975, 1977, 1983, 1991, 1992] },
+  "Japan": { flag: "🇯🇵", years: [2005, 2006, 2008, 2009] },
+  "Kenya": { flag: "🇰🇪", years: [1977] },
+  "Niger": { flag: "🇳🇪", years: [1962, 1968, 1969, 1971, 1984, 2016] },
+  "Spain": { flag: "🇪🇸", years: [1963, 1968, 1969, 1973, 1985, 2018, 2019] },
+  "Sudan": { flag: "🇸🇩", years: [2001, 2005, 2006, 2018, 2019] },
+  "Angola": { flag: "🇦🇴", years: [1970, 1972, 1973, 1974, 1976, 1984] },
+  "Brazil": { flag: "🇧🇷", years: [1975, 1999, 2000, 2010, 2013] },
+  "Canada": { flag: "🇨🇦", years: [2016, 2018] },
+  "Cyprus": { flag: "🇨🇾", years: [1986, 1990] },
+  "France": { flag: "🇫🇷", years: [1996, 1999, 2000, 2001, 2002, 2003, 2004] },
+  "Greece": { flag: "🇬🇷", years: [1961, 1981, 2001, 2004] },
+  "Jordan": { flag: "🇯🇴", years: [1997, 2009] },
+  "Mexico": { flag: "🇲🇽", years: [1955, 1972, 1974, 1976] },
+  "Poland": { flag: "🇵🇱", years: [2008] },
+  "Rwanda": { flag: "🇷🇼", years: [1961] },
+  "Serbia": { flag: "🇷🇸", years: [1999, 2000] },
+  "Sweden": { flag: "🇸🇪", years: [1993, 2019] },
+  "Austria": { flag: "🇦🇹", years: [1961, 1967, 1968, 1969, 2000, 2001, 2009, 2011] },
+  "Belgium": { flag: "🇧🇪", years: [1953, 1956, 1963, 1964, 1966, 1975] },
+  "Burundi": { flag: "🇧🇮", years: [2017] },
+  "Ecuador": { flag: "🇪🇨", years: [1953, 1980, 1986] },
+  "Estonia": { flag: "🇪🇪", years: [2012] },
+  "Finland": { flag: "🇫🇮", years: [1984] },
+  "Germany": { flag: "🇩🇪", years: [1997] },
+  "Iceland": { flag: "🇮🇸", years: [1954, 2016] },
+  "Ireland": { flag: "🇮🇪", years: [1979, 1983] },
+  "Lebanon": { flag: "🇱🇧", years: [1979] },
+  "Morocco": { flag: "🇲🇦", years: [2008, 2017, 2018, 2019] },
+  "Namibia": { flag: "🇳🇦", years: [1992, 1993, 1996] },
+  "Romania": { flag: "🇷🇴", years: [1971, 1972, 1975, 1982] },
+  "Tunisia": { flag: "🇹🇳", years: [1964, 1966, 1984, 1985] },
+  "Uruguay": { flag: "🇺🇾", years: [1965] },
+  "Bulgaria": { flag: "🇧🇬", years: [1970, 1971, 1972, 1980, 1983, 1984, 1985, 1987] },
+  "Cameroon": { flag: "🇨🇲", years: [1988] },
+  "Djibouti": { flag: "🇩🇯", years: [1993] },
+  "Mongolia": { flag: "🇲🇳", years: [2014] },
+  "Paraguay": { flag: "🇵🇾", years: [1979] },
+  "Portugal": { flag: "🇵🇹", years: [1966, 1975] },
+  "Slovakia": { flag: "🇸🇰", years: [1994] },
+  "Slovenia": { flag: "🇸🇮", years: [2000] },
+  "Suriname": { flag: "🇸🇷", years: [2006, 2014] },
+  "Zimbabwe": { flag: "🇿🇼", years: [1989] },
+  "Argentina": { flag: "🇦🇷", years: [2015, 2016] },
+  "Australia": { flag: "🇦🇺", years: [2000, 2013] },
+  "Guatemala": { flag: "🇬🇹", years: [1958] },
+  "Nicaragua": { flag: "🇳🇮", years: [1982, 1992] },
+  "Sri Lanka": { flag: "🇱🇰", years: [1988, 1997] },
+  "Costa Rica": { flag: "🇨🇷", years: [1950] },
+  "Kyrgyzstan": { flag: "🇰🇬", years: [2016, 2017] },
+  "Luxembourg": { flag: "🇱🇺", years: [1992] },
+  "Mauritania": { flag: "🇲🇷", years: [1997] },
+  "Tajikistan": { flag: "🇹🇯", years: [2018, 2019] },
+  "New Zealand": { flag: "🇳🇿", years: [1987] },
+  "Switzerland": { flag: "🇨🇭", years: [1950, 1986] },
+  "Saudi Arabia": { flag: "🇸🇦", years: [1991] },
+  "Sierra Leone": { flag: "🇸🇱", years: [2010] },
+  "South Africa": { flag: "🇿🇦", years: [1971] },
+  "United States": { flag: "🇺🇸", years: [1955, 1958, 1961, 1962, 1963, 1965, 1976, 1980, 1981, 1983, 1989, 1999, 2006] },
+  "Czech Republic": { flag: "🇨🇿", years: [2006, 2007, 2014, 2015] },
+  "Côte d'Ivoire": { flag: "🇨🇮", years: [1980, 1981] },
+  "United Kingdom": { flag: "🇬🇧", years: [1983, 1984, 1986, 2014] },
+  "Lao People's DR": { flag: "🇱🇦", years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1990, 1991] },
+  "North Macedonia": { flag: "🇲🇰", years: [1991, 2000, 2014, 2016] },
+  "Republic of Korea": { flag: "🇰🇷", years: [1972, 1973, 1985, 2008, 2011] },
+  "Russian Federation": { flag: "🇷🇺", years: [1999, 2009] },
+  "Republic of Moldova": { flag: "🇲🇩", years: [2018] },
+  "Central African Republic": { flag: "🇨🇫", years: [1989] },
+  "U.R. of Tanzania: Mainland": { flag: "🇹🇿", years: [2007, 2011] },
+  "Bolivia (Plurinational State of)": { flag: "🇧🇴", years: [1988, 1995] }
+};
+
+
+
+
 
   constructor(
         private authService: AuthService,
@@ -170,13 +255,114 @@ listaAnios: number[] = [2020, 2021, 2022, 2023];
   }
 
 cargarDatos() {
-  // Query dinámica:
-  // SELECT * FROM economicos WHERE pais = paisSeleccionado AND anio = anioSeleccionado;
+  this.anioSeleccionado = null;
+  this.listaAnios = this.datosPorPais[this.paisSeleccionado]?.years || [];
+          console.log('Resultado listaAnios:', this.listaAnios);
+  
 }
+// En tu componente FormulaPage.ts
+get listaPaises2(): string[] {
+  return Object.keys(this.datosPorPais || {});
+}
+
 
 consultarPostgres() {
   // Llamada al backend que consulta PostgreSQL y devuelve JSON
   // Luego actualizas los gráficos en el dashboard
+
+    if (this.paisSeleccionado && this.anioSeleccionado) {
+      this.supabaseApi.calcularResultados(this.paisSeleccionado, this.anioSeleccionado)
+      .subscribe(data => {
+        // this.resultado = data;
+
+/*         console.log('Resultado:', this.resultado);
+        console.log('Resultado buscarPais:', data);
+        
+
+        // Supongamos que la respuesta del API está en la variable res
+        const res = data; // aquí va tu JSON recibido
+
+        this.resultado = res.resultados.map(item => ({
+          produccion: item.rgdpna,          // valor de rgdpna
+          circulacion: item.Y,              // valor de Y
+          diferencia: item.error_relativo,  // valor de error_relativo
+          equilibrio: Math.abs(item.error_relativo) < 5 // regla de equilibrio
+        }));
+        console.log('Resultado actualizado:', this.resultado);
+
+        this.equilibrio =  this.resultado
+ */
+   
+        // Supongamos que la respuesta del API está en la variable data
+
+
+// Supongamos que la respuesta del API está en la variable data
+console.log('Respuesta API:', data);
+
+// Array de resultados
+const res = data?.resultados?.resultados || [];
+
+// Objeto Cobb-Douglas
+const cobb = data?.cobb_douglas || null;
+
+// Filtrar por el año seleccionado y luego mapear
+const item = res.find(r => r.year === this.anioSeleccionado);
+
+if (item) {
+  // actualizar la parte de la circulacion
+  this.params.omega = item.omega;
+  this.params.pi = item.pi;
+  this.params.a0 = item.A0;
+  this.params.cp = item.cp;
+
+
+  // actualizar el objeto para los graficos
+  this.resultado = [
+  {
+    produccion: item.rgdpna,
+    circulacion: item.Y,
+    diferencia: item.error_relativo,
+    equilibrio: Math.abs(item.error_relativo) < 5
+  }
+];
+
+}
+
+this.equilibrio=this.resultado
+
+console.log('Resultado circulacion:', this.resultado);
+console.log('Resultado produccion:', cobb);
+
+// actualizar produccion desde Cobb-Douglas 
+if (cobb) {
+  console.log('A:', cobb.a);
+  console.log('Trabajo L:', cobb.l);
+  console.log('Capital estimado K:', cobb.k);
+  
+  this.params.a=cobb.a
+  this.params.l=cobb.l
+  this.params.k=cobb.k
+  
+}
+
+
+
+          console.log(this.params);
+
+          this.clasificarDiferencia(this.resultado[0]);
+          this.updateCharts();
+          this.updateChart()
+
+          this.calcular()
+
+      });
+    
+
+  } else {
+    console.warn('Debes seleccionar país y año');
+  }
+
+
 }
   
   async changeLang(lang: string) {
@@ -533,10 +719,10 @@ compararEconomia(
     this.circulacionChart = new Chart(this.circulacionRef.nativeElement.getContext('2d')!, {
       type: 'bar',
       data: {
-        labels: ['Cp', 'A0', 'e'],
+        labels: ['Cp', 'A0'],
         datasets: [{
           label: 'Circulación',
-          data: [this.params.cp, this.params.a0, this.params.e],
+          data: [this.params.cp, this.params.a0],
           backgroundColor: 'rgba(255, 159, 64, 0.6)'
         }]
       }
@@ -560,7 +746,7 @@ compararEconomia(
     this.produccionChart.data.datasets[0].data = [this.params.a, this.params.l, this.params.k];
     this.produccionChart.update();
 
-    this.circulacionChart.data.datasets[0].data = [this.params.cp, this.params.a0, this.params.e];
+    this.circulacionChart.data.datasets[0].data = [this.params.cp, this.params.a0];
     this.circulacionChart.update();
 
     this.distribucionChart.data.datasets[0].data = [this.params.omega, this.params.pi];

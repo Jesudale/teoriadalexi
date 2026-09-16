@@ -33,25 +33,27 @@
   </ion-card-header>
 
   <ion-card-content>
-    <!-- Selector de País -->
-    <ion-item>
-      <ion-label>País</ion-label>
-      <ion-select [(ngModel)]="paisSeleccionado" (ionChange)="cargarDatos()">
-        <ion-select-option value="Mexico">🇲🇽 México</ion-select-option>
-        <ion-select-option value="España">🇪🇸 España</ion-select-option>
-        <ion-select-option value="Cuba">🇨🇺 Cuba</ion-select-option>
-      </ion-select>
-    </ion-item>
+      <!-- Selector de País -->
+<ion-item>
+  <ion-label>País</ion-label>
+  <ion-select [(ngModel)]="paisSeleccionado" (ionChange)="cargarDatos()">
+    <ion-select-option *ngFor="let p of listaPaises2" [value]="p">
+      {{ datosPorPais[p].flag }} {{ p }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
 
-    <!-- Selector de Año -->
-    <ion-item>
-      <ion-label>Año</ion-label>
-      <ion-select [(ngModel)]="anioSeleccionado" (ionChange)="cargarDatos()">
-        <ion-select-option *ngFor="let anio of listaAnios" [value]="anio">
-          {{ anio }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+<!-- Selector de Año -->
+<ion-item>
+  <ion-label>Año</ion-label>
+  <ion-select *ngIf="paisSeleccionado" [(ngModel)]="anioSeleccionado">
+    <ion-select-option *ngFor="let anio of datosPorPais[paisSeleccionado]?.years" [value]="anio">
+      {{ anio }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
+
+
 
     <!-- Botón de consulta -->
     <ion-button expand="block" (click)="consultarPostgres()">
@@ -76,7 +78,7 @@
   </ion-card-header>
   <ion-card-content>
     <ion-item>
-      <ion-label>A = {{ params.a }}</ion-label>
+      <ion-label>A = {{ params.a.toFixed(2) }}</ion-label>
       <ion-range min="0" [max]="maxA" step="1" [(ngModel)]="params.a" name="aRange" pin="true" (ngModelChange)="updateMax('params.a')"></ion-range>
       
       <!-- Input que redefine el máximo -->
@@ -84,13 +86,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>L = {{ params.l }}</ion-label>
+      <ion-label>L = {{ params.l.toFixed(2) }}</ion-label>
       <ion-range min="0" [max]="maxL" step="10" [(ngModel)]="params.l" name="lRange" pin="true" (ngModelChange)="updateMax('params.l')"></ion-range>
       <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxL" name="maxL" (ngModelChange)="updateMax('l')"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>K = {{ params.k }}</ion-label>
+      <ion-label>K = {{ params.k.toFixed(2) }}</ion-label>
       <ion-range min="0" [max]="maxK" step="5" [(ngModel)]="params.k" name="kRange" pin="true" (ngModelChange)="updateMax('params.k')"></ion-range>
       <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxK" name="maxK" (ngModelChange)="updateMax('k')"></ion-input>
     </ion-item>
@@ -105,7 +107,7 @@
   <ion-card-content>
           <ion-item>
               <!-- Mostrar Cp como porcentaje -->
-              <ion-label>Cp = {{ (params.cp * 100) | number:'1.0-0' }}%</ion-label>
+              <ion-label>Cp = {{ (params.cp.toFixed(2) * 100) | number:'1.0-0' }}%</ion-label>
 
               <!-- Slider limitado entre 0 y 1 -->
               <ion-range min="0" max="1" step="0.1"
@@ -127,16 +129,12 @@
             </ion-item>
 
     <ion-item>
-      <ion-label>A0 = {{ params.a0 }}</ion-label>
+      <ion-label>A0 = {{ params.a0.toFixed(2) }}</ion-label>
       <ion-range min="0" [max]="maxA0" step="1" [(ngModel)]="params.a0" name="a0Range" pin="true" (ngModelChange)="updateMax('params.a0')"></ion-range>
       <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxA0" name="maxA0" (ngModelChange)="updateMax('a0')"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label>e = {{ params.e }}</ion-label>
-      <ion-range min="1" [max]="maxE" step="1" [(ngModel)]="params.e" name="eRange" pin="true" (ngModelChange)="updateMax('params.e')"></ion-range>
-      <ion-input type="text" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="maxE" name="maxE" (ngModelChange)="updateMax('e')"></ion-input>
-    </ion-item>
+
   </ion-card-content>
 </ion-card>
 
@@ -149,7 +147,7 @@
                 <ion-card-content>
               <ion-item>
                 <!-- Input editable de ω -->
-                <ion-label>ω (omega)</ion-label>
+                <ion-label>ω</ion-label>
                 <ion-input type="number" step="0.1"
                           [(ngModel)]="params.omega"
                           name="omega"
@@ -163,7 +161,7 @@
                           (ngModelChange)="updatePi()">
                 </ion-range>
                                 <!-- Input calculado automáticamente -->
-                <ion-label>π (pi)</ion-label>
+                <ion-label>π</ion-label>
                 <ion-input type="text" inputmode="numeric" pattern="[0-9]*"
                           [value]="params.pi | number:'1.1-1'"
                           readonly>

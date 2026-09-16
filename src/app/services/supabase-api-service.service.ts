@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 export class SupabaseApiService {
   private apiUrl = 'https://jcdufidbcmsejwuqwlaf.supabase.co/rest/v1/rpc/calcular_equilibrio';
     private apiUrl2 = 'https://jcdufidbcmsejwuqwlaf.supabase.co/rest/v1/rpc/calcular_equilibrio_extendido_v2';
+        private apiUrlBase = 'https://jcdufidbcmsejwuqwlaf.supabase.co/rest/v1/';
   private apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjZHVmaWRiY21zZWp3dXF3bGFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzOTQ4MzMsImV4cCI6MjA3OTk3MDgzM30.yx9PtlgVXb4i1984nu10aHAT-3zBT6WRHu-Ok7hmk04'; // pon tu apikey aquí
 
   constructor(private http: HttpClient) {}
@@ -40,4 +41,22 @@ export class SupabaseApiService {
 
     return this.http.post(this.apiUrl2, params, { headers });
   }
+
+calcularResultados(pais: string, anio: number): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'apikey': this.apiKey,
+    'Authorization': `Bearer ${this.apiKey}`
+  });
+
+  const params = { "p_country": pais, "p_year": anio } ;
+//calcular_resultados_tc_v2
+  return this.http.post<any>(
+    `${this.apiUrlBase}/rpc/cargar_datos`,
+    params,
+    { headers }
+  );
+}
+
+
 }
