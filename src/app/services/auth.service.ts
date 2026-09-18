@@ -67,7 +67,7 @@ export class AuthService {
 
   sendPwReset(email) {
     return this.supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: 'http://localhost:3000/update-password'
+    redirectTo: 'https://teoriaunificacion.vercel.app/update-password'
   });
   }
   
