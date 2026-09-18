@@ -280,3 +280,51 @@ ion-input[type=number]::part(native) {
   width: 100% !important;
   height: 100% !important;
 }
+.titulo-centrado {
+  text-align: center;
+}
+.popover-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.popover-subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 15px;
+  color: #16a085;
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  color: #3498db;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+ion-item {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.custom-popover {
+  --width: 420px;
+  --max-width: 95%;
+  --offset-y: 0px;   /* mueve hacia arriba */
+  --offset-x: 0px;      /* centrado horizontal */
+}
+.formula-box {
+  border-left: 4px solid #3498db;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+
+.formula {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: #e74c3c;
+  margin: 5px 0;
+}

@@ -113,7 +113,8 @@ establecerPuntoPartida() {
  currentLang = 'es';
 
 
-formula = 'AL^{\\omega} K^{\\pi} = \\frac{1}{1-(\\omega + c_p \\pi)} \\cdot A_0 ';
+formula = 'AL^{\\omega} K^{\\theta} = \\frac{1}{1-(\\omega + c_p \\theta)} \\cdot A_0 ';
+
 variableAjustada:boolean=false 
 
 respuestaAjustada= 
@@ -217,7 +218,13 @@ datosPorPais: { [key: string]: { flag: string, years: number[] } } = {
   "Bolivia (Plurinational State of)": { flag: "🇧🇴", years: [1988, 1995] }
 };
 
+popoverOpen = false;
+popoverEvent: any;
 
+mostrarInfo(ev: any) {
+  this.popoverEvent = ev;   // guarda el evento del click
+  this.popoverOpen = true;  // abre el popover
+}
 
 
 
@@ -500,7 +507,7 @@ initChart() {
 
   openLogin() {
     this.navContoller.navigateBack('/');
-  }
+  } 
 
   calcular() {
     this.variableAjustada=false
@@ -732,7 +739,7 @@ compararEconomia(
     this.distribucionChart = new Chart(this.distribucionRef.nativeElement.getContext('2d')!, {
       type: 'bar',
       data: {
-        labels: ['Salarios (w)','Beneficios (π)'],
+        labels: ['Salarios (w)','Beneficios (θ)'],
         datasets: [{
           label: 'Distribución del ingreso',
           data: [this.params.omega, this.params.pi],

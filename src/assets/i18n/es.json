@@ -80,7 +80,31 @@
   "monetaryUnits": "unidades monetarias",
   "dynamicEquilibriumProduction": "Esta opción permite determinar la cantidad de horas de trabajo (L) que deben incrementarse en el sector productivo para que, en relación con la circulación, se alcance un equilibrio dinámico, manteniendo constantes las demás variables del sistema.",
   "dynamicEquilibriumDemand": "Esta opción permite determinar la magnitud de la Demanda Autónoma (A₀), expresada en unidades monetarias, que debe incrementarse en el sector de la circulación para que, en interacción con la producción, se logre un equilibrio dinámico, manteniendo constantes las demás variables del sistema.",
-  "searchEquilibrium": "Buscar equilibrio"
-
- 
+  "searchEquilibrium": "Buscar equilibrio",
+  "titulo1":"Seleccione País y Año",
+  "titulo2":"Indicadores Económicos (Fuente: Penn World Table)",
+  "pais":"País",
+  "año":"Año",
+  "cargardatos":"Cargar Datos",
+    "variablesPWT": {
+    "title": "📊 Variables PWT",
+    "summaryTitle": "✅ Resumen",
+    "directData": "Datos directos de PWT: rgdpna, labsh, rtfpna, emp, avh.",
+    "derivedData": "Derivados/calculados: Theta, L, K, Y_est, Cp, A0",
+    "country": "t.country (nombre del país en la tabla PWT)",
+    "year": "t.year (año de la observación)",
+    "A": "rtfpna (productividad total de los factores)",
+    "emp": "personas empleadas",
+    "avh": "horas promedio trabajadas",
+    "L": "emp × avh (total de horas trabajadas)",
+    "K": "calculado con Cobb‑Douglas",
+    "rgdpna": "PIB real a precios nacionales",
+    "labsh": "participación del trabajo en el ingreso",
+    "omega": "labsh",
+    "theta": "1 - labsh (participación del capital en el ingreso)",
+    "cpTitle": "📊 Cómo se calcula cₚ",
+    "formulaLabel": "Fórmula:",
+    "csh_c": "participación del consumo privado en el PIB",
+    "cp":"propensión media al consumo de los capitalistas"
+  }
 }

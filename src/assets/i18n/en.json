@@ -83,6 +83,33 @@
   "monetaryUnits": "monetary units",
   "dynamicEquilibriumProduction": "This option allows determining the amount of work hours (L) that must be increased in the productive sector so that, in relation to circulation, a dynamic equilibrium is reached, keeping the other variables of the system constant.",
   "dynamicEquilibriumDemand": "This option allows determining the magnitude of Autonomous Demand (A₀), expressed in monetary units, that must be increased in the circulation sector so that, in interaction with production, a dynamic equilibrium is achieved, keeping the other variables of the system constant.",
-  "searchEquilibrium": "Search Equilibrium"
+  "searchEquilibrium": "Search Equilibrium",
+  "titulo1":"Select Country and Year",
+  "titulo2":"Economic Indicators (Source: Penn World Table)",
+  "pais": "Country",
+  "año": "Year",
+  "cargardatos": "Load Data",
+  
+  "variablesPWT": {
+    "title": "📊 PWT Variables",
+    "summaryTitle": "✅ Summary",
+    "directData": "Direct PWT data: rgdpna, labsh, rtfpna, emp, avh.",
+    "derivedData": "Derived/calculated: Theta, L, K, Y_est, Cp, A0.",
+    "country": "t.country (country name in PWT table)",
+    "year": "t.year (year of observation)",
+    "A": "rtfpna (total factor productivity)",
+    "emp": "employed persons",
+    "avh": "average annual hours worked",
+    "L": "emp × avh (total hours worked)",
+    "K": "calculated with Cobb‑Douglas",
+    "rgdpna": "real GDP at national prices",
+    "labsh": "labor share in income",
+    "omega": "labsh",
+    "theta": "1 - labsh (capital share in income)",
+    "cpTitle": "📊 How cₚ is calculated",
+    "formulaLabel": "Formula:",
+    "csh_c": "share of private consumption in GDP",
+        "cp": "average propensity to consume of capitalists"
+  }
 
 }

@@ -29,13 +29,70 @@
 
   <ion-card>
   <ion-card-header>
-    <ion-card-title>Datos Económicos</ion-card-title>
+  <ion-card-title class="titulo-centrado">{{ 'titulo1' | translate }}</ion-card-title>
+   <ion-card-title class="titulo-centrado">
+    {{ 'titulo2' | translate }}
+    <ion-icon 
+      name="help-circle-outline" 
+      class="info-icon" 
+      (click)="mostrarInfo($event)">
+    </ion-icon>
+  </ion-card-title>
   </ion-card-header>
+
+
+<!-- Popover -->
+<ion-popover [isOpen]="popoverOpen" 
+(didDismiss)="popoverOpen = false" 
+[event]="popoverEvent" 
+cssClass="custom-popover"
+ side="top" 
+  alignment="start">
+
+    <ng-template>
+    <ion-content class="ion-padding">
+      <h2 class="popover-title">{{ 'variablesPWT.title' | translate }}</h2>
+
+      <h3 class="popover-subtitle">{{ 'variablesPWT.summaryTitle' | translate }}</h3>
+      <p>
+        <b>{{ 'variablesPWT.directData' | translate }}</b><br>
+        <b>{{ 'variablesPWT.derivedData' | translate }}</b>
+      </p>
+
+      <ion-list lines="none">
+        <ion-item><b>country</b> → {{ 'variablesPWT.country' | translate }}</ion-item>
+        <ion-item><b>year</b> → {{ 'variablesPWT.year' | translate }}</ion-item>
+        <ion-item><b>A</b> → {{ 'variablesPWT.A' | translate }}</ion-item>
+        <ion-item><b>emp</b> → {{ 'variablesPWT.emp' | translate }}</ion-item>
+        <ion-item><b>avh</b> → {{ 'variablesPWT.avh' | translate }}</ion-item>
+        <ion-item><b>L</b> → {{ 'variablesPWT.L' | translate }}</ion-item>
+        <ion-item><b>K</b> → {{ 'variablesPWT.K' | translate }}</ion-item>
+        <ion-item><b>rgdpna</b> → {{ 'variablesPWT.rgdpna' | translate }}</ion-item>
+        <ion-item><b>labsh</b> → {{ 'variablesPWT.labsh' | translate }}</ion-item>
+        <ion-item><b>omega</b> → {{ 'variablesPWT.omega' | translate }}</ion-item>
+        <ion-item><b>theta</b> → {{ 'variablesPWT.theta' | translate }}</ion-item>
+      </ion-list>
+
+      <h3 class="popover-subtitle">Cp: {{ 'variablesPWT.cp' | translate }}. {{ 'variablesPWT.cpTitle' | translate }}:</h3>
+      <div class="formula-box">
+        <ion-item><b>{{ 'variablesPWT.formulaLabel' | translate }}</b></ion-item>
+        <p class="formula">cₚ = (csh_c − labsh) / (1 − labsh)</p>
+                
+      <ion-list lines="none">
+        <ion-item><b>csh_c</b> → {{ 'variablesPWT.csh_c' | translate }}</ion-item>
+        <ion-item><b>labsh</b> → {{ 'variablesPWT.labsh' | translate }}</ion-item>
+
+      </ion-list>
+      </div>
+    </ion-content>
+  </ng-template>
+
+</ion-popover>
 
   <ion-card-content>
       <!-- Selector de País -->
 <ion-item>
-  <ion-label>País</ion-label>
+  <ion-label>{{ 'pais' | translate }}</ion-label>
   <ion-select [(ngModel)]="paisSeleccionado" (ionChange)="cargarDatos()">
     <ion-select-option *ngFor="let p of listaPaises2" [value]="p">
       {{ datosPorPais[p].flag }} {{ p }}
@@ -45,7 +102,7 @@
 
 <!-- Selector de Año -->
 <ion-item>
-  <ion-label>Año</ion-label>
+  <ion-label>{{ 'año' | translate }}</ion-label>
   <ion-select *ngIf="paisSeleccionado" [(ngModel)]="anioSeleccionado">
     <ion-select-option *ngFor="let anio of datosPorPais[paisSeleccionado]?.years" [value]="anio">
       {{ anio }}
@@ -57,7 +114,7 @@
 
     <!-- Botón de consulta -->
     <ion-button expand="block" (click)="consultarPostgres()">
-      Cargar datos
+      {{ 'cargardatos' | translate }}
     </ion-button>
   </ion-card-content>
 </ion-card>
@@ -148,7 +205,7 @@
               <ion-item>
                 <!-- Input editable de ω -->
                 <ion-label>ω</ion-label>
-                <ion-input type="number" step="0.1"
+                <ion-input type="text" inputmode="numeric" pattern="[0-9]*"
                           [(ngModel)]="params.omega"
                           name="omega"
                           (ngModelChange)="updatePi()">
@@ -161,7 +218,7 @@
                           (ngModelChange)="updatePi()">
                 </ion-range>
                                 <!-- Input calculado automáticamente -->
-                <ion-label>π</ion-label>
+                <ion-label>θ</ion-label>
                 <ion-input type="text" inputmode="numeric" pattern="[0-9]*"
                           [value]="params.pi | number:'1.1-1'"
                           readonly>
