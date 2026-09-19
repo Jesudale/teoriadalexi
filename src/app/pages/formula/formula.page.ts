@@ -9,6 +9,7 @@ import { Chart, registerables,ChartConfiguration  } from 'chart.js';
 import { SupabaseApiService } from './../../services/supabase-api-service.service';
 import { TranslateService } from '@ngx-translate/core'; 
 
+
 declare var MathJax: any;
 import katex from 'katex';
 
@@ -235,7 +236,8 @@ mostrarInfo(ev: any) {
         private navContoller: NavController,
         private router: Router,
         private supabaseApi: SupabaseApiService,
-        private translate: TranslateService
+        private translate: TranslateService, 
+        private auth: AuthService
   ) { 
     
     Chart.register(...registerables);   // 👈 registra todos los controladores
@@ -243,6 +245,14 @@ mostrarInfo(ev: any) {
      this.translate.setDefaultLang(this.currentLang);
 
   }
+
+  async goToMyGroup() {
+  const groupId = await this.auth.getMyGroupId();
+  if (groupId) {
+    this.router.navigate(['/messages', groupId]);
+  }
+}
+
 
   ngOnInit() {
   }

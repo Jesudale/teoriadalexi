@@ -111,4 +111,19 @@ async updatePassword(newPassword: string) {
   async setSession(access_token, refresh_token) {
     return this.supabase.auth.setSession({ access_token, refresh_token });
   }
+
+  async getMyGroupId(): Promise<string | null> {
+  const userId = this.getCurrentUserId();
+  if (!userId) return null;
+
+  const { data, error } = await this.supabase
+    .from('groups')
+    .select('id')
+    .eq('user_id', userId)
+    .single();
+
+  if (error) return null;
+  return data.id;
+}
+
 }
