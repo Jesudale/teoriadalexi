@@ -114,6 +114,9 @@ async updatePassword(newPassword: string) {
 
   async getMyGroupId(): Promise<string | null> {
   const userId = this.getCurrentUserId();
+
+  console.log('Resultado userId:', userId);
+
   if (!userId) return null;
 
   const { data, error } = await this.supabase
