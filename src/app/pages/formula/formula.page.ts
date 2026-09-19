@@ -246,13 +246,24 @@ mostrarInfo(ev: any) {
 
   }
 
-  async goToMyGroup() {
-  const groupId = await this.auth.getMyGroupId();
-  if (groupId) {
-    this.router.navigate(['/messages', groupId]);
-  }
-}
+    async goToMyGroup() {
+    const userId = this.auth.getCurrentUserId(); // ya tienes el id del usuario autenticado
+    if (!userId) return;
 
+    // Usamos el cliente Supabase que está dentro del servicio
+    const { data, error } = await (this.auth as any).supabase
+      .from('groups')
+      .select('id')
+      .eq('creator', userId)
+      .single();
+
+    if (error) {
+      console.error('Error obteniendo grupo:', error);
+      return;
+    }
+
+    this.router.navigate(['/messages', data.id]);
+  }
 
   ngOnInit() {
   }
