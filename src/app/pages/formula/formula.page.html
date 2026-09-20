@@ -11,15 +11,19 @@
     </ion-buttons>
 
 
-<ion-button expand="block" (click)="goToMyGroup()">
-  Mi grupo
-</ion-button>
+
 
     <!-- Título centrado -->
     <ion-title class="ion-text-center">
       Dashboard 
     </ion-title>
 
+    <ion-buttons slot="end">
+      <ion-button (click)="goToMyGroup()">
+        <ion-icon name="chatbubbles-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
     <!-- Logout a la derecha -->
     <ion-buttons slot="end">
       <ion-button (click)="signOut()">

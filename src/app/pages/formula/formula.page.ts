@@ -262,7 +262,7 @@ mostrarInfo(ev: any) {
       return;
     }
 
-    this.router.navigate(['/messages', data.id]);
+    this.router.navigate(['/groups', data.id]);
   }
 
   ngOnInit() {

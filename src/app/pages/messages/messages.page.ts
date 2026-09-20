@@ -3,6 +3,7 @@ import { DataService } from './../../services/data.service';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent } from '@ionic/angular';
+import { marked } from "marked";
 
 @Component({
   selector: 'app-messages',
@@ -15,7 +16,9 @@ export class MessagesPage implements OnInit, AfterViewInit, OnDestroy {
   messages = [];
   currentUserId = null;
   messageText = '';
-
+renderMarkdown(text: string) {
+    return marked(text);
+  }
   constructor(private route: ActivatedRoute, private data: DataService, private authService: AuthService) {}
 
   async ngOnInit() {

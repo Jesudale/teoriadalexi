@@ -6,18 +6,18 @@
     <ion-title>{{ group?.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
   <ion-row *ngFor="let message of messages">
+    <!-- Mensajes de otros -->
     <ion-col size="10" *ngIf="message.users.id !== currentUserId" class="message other-message">
-      <span>{{ message.text }} </span>
-
-      <div class="time ion-text-right"><br />{{ message.created_at | date:'shortTime' }}</div>
+      <div [innerHTML]="renderMarkdown(message.text)"></div>
+      <div class="time ion-text-right"><br />{{ message.created_at | date:'shortTime' }}</div>
     </ion-col>
 
+    <!-- Mensajes propios -->
     <ion-col offset="2" size="10" *ngIf="message.users.id === currentUserId" class="message my-message">
-      <span>{{ message.text }} </span>
-      <div class="time ion-text-right"><br />{{ message.created_at | date:'shortTime' }}</div>
+      <div [innerHTML]="renderMarkdown(message.text)"></div>
+      <div class="time ion-text-right"><br />{{ message.created_at | date:'shortTime' }}</div>
     </ion-col>
   </ion-row>
 </ion-content>
@@ -36,3 +36,4 @@
     </ion-row>
   </ion-toolbar>
 </ion-footer>
+
